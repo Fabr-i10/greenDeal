@@ -1,0 +1,115 @@
+<div id="reportsView" class="view-panel hidden">
+                            <div class="view-header reports-view-header mb-3">
+                                <div>
+                                    <h4 class="mb-1">Reportes mensuales</h4>
+                                    <p class="text-muted mb-0">Consulta totales por mes o por rango de fechas</p>
+                                </div>
+                                <div id="reportFilterForm" class="report-filter-form">
+                                    <div class="report-toolbar">
+                                        <div class="report-mode-toggle btn-group btn-group-sm" role="group" aria-label="Tipo de reporte">
+                                            <input type="radio" class="btn-check" name="reportMode" id="reportModeMonth" value="month" checked>
+                                            <label class="btn btn-outline-success" for="reportModeMonth">Por mes</label>
+                                            <input type="radio" class="btn-check" name="reportMode" id="reportModeRange" value="range">
+                                            <label class="btn btn-outline-success" for="reportModeRange">Por rango</label>
+                                        </div>
+                                        <div id="reportMonthFilters" class="report-filter-fields">
+                                            <div class="report-filter-field">
+                                                <label class="form-label" for="reportYear">Año</label>
+                                                <input type="number" class="form-control form-control-sm" id="reportYear" min="2020" max="2100">
+                                            </div>
+                                            <div class="report-filter-field">
+                                                <label class="form-label" for="reportMonth">Mes</label>
+                                                <select class="form-select form-select-sm" id="reportMonth">
+                                                    <option value="1">Enero</option>
+                                                    <option value="2">Febrero</option>
+                                                    <option value="3">Marzo</option>
+                                                    <option value="4">Abril</option>
+                                                    <option value="5">Mayo</option>
+                                                    <option value="6">Junio</option>
+                                                    <option value="7">Julio</option>
+                                                    <option value="8">Agosto</option>
+                                                    <option value="9">Septiembre</option>
+                                                    <option value="10">Octubre</option>
+                                                    <option value="11">Noviembre</option>
+                                                    <option value="12">Diciembre</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div id="reportRangeFilters" class="report-filter-fields hidden">
+                                            <div class="report-filter-field">
+                                                <label class="form-label" for="reportStartDate">Desde</label>
+                                                <input type="date" class="form-control form-control-sm" id="reportStartDate">
+                                            </div>
+                                            <div class="report-filter-field">
+                                                <label class="form-label" for="reportEndDate">Hasta</label>
+                                                <input type="date" class="form-control form-control-sm" id="reportEndDate">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row g-3 mb-4">
+                                <div class="col-12 col-sm-6 col-lg-3">
+                                    <div class="card dashboard-card">
+                                        <div class="card-body">
+                                            <h6 class="text-muted">Total ventas</h6>
+                                            <h4 id="reportTotalSales">₡0</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-6 col-lg-3">
+                                    <div class="card dashboard-card">
+                                        <div class="card-body">
+                                            <h6 class="text-muted">Total comisiones</h6>
+                                            <h4 id="reportTotalCommissions">₡0</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-6 col-lg-3">
+                                    <div class="card dashboard-card">
+                                        <div class="card-body">
+                                            <h6 class="text-muted">Total IVA</h6>
+                                            <h4 id="reportTotalVAT">₡0</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-6 col-lg-3">
+                                    <div class="card dashboard-card">
+                                        <div class="card-body">
+                                            <h6 class="text-muted">Cantidad de ventas</h6>
+                                            <h4 id="reportSalesCount">0</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card dashboard-card">
+                                <div class="card-body">
+                                    <div class="d-flex flex-column flex-sm-row justify-content-between align-items-start align-items-sm-center gap-2 mb-3">
+                                        <h5 class="mb-0">Tours más vendidos</h5>
+                                        <span class="text-muted" id="reportPeriodLabel">-</span>
+                                    </div>
+                                    <div class="table-responsive">
+                                        <table class="table table-hover align-middle mb-0">
+                                            <thead>
+                                                <tr>
+                                                    <th class="text-end">#</th>
+                                                    <th>Tour</th>
+                                                    <th class="text-end">Ventas</th>
+                                                    <th class="text-end">Personas</th>
+                                                    <th class="text-end">Monto total</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="topToursTableBody">
+                                                <tr>
+                                                    <td colspan="5" class="text-center text-muted py-4">
+                                                        Selecciona un periodo para ver el reporte.
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>

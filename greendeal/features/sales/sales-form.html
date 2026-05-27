@@ -1,0 +1,61 @@
+<div class="modal fade" id="saleFormPanel" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-lg modal-fullscreen-sm-down modal-dialog-scrollable modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Registrar venta</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                    </div>
+                    <form id="saleForm" class="panel-form">
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-12 col-md-6 mb-3">
+                                    <label class="form-label">Tour</label>
+                                    <select class="form-select" id="saleTourId" required>
+                                        <option value="">Seleccione un tour</option>
+                                    </select>
+                                </div>
+                                <div class="col-12 col-sm-6 col-md-3 mb-3">
+                                    <label class="form-label">Fecha de venta</label>
+                                    <input type="date" class="form-control" id="saleDate" required>
+                                </div>
+                                <div class="col-12 col-sm-6 col-md-3 mb-3">
+                                    <label class="form-label">Cantidad de personas</label>
+                                    <input type="number" class="form-control" id="saleQuantityPeople" min="1" step="1" value="1" required>
+                                </div>
+                            </div>
+
+                            <div class="card bg-light border-0">
+                                <div class="card-body">
+                                    <h6 class="text-muted mb-3">Cálculo automático</h6>
+                                    <div class="row g-2">
+                                        <div class="col-6 col-md-3">
+                                            <small class="text-muted d-block">Total venta</small>
+                                            <strong id="previewTotalSale">₡0</strong>
+                                        </div>
+                                        <div class="col-6 col-md-3">
+                                            <small class="text-muted d-block">Comisión total (20%)</small>
+                                            <strong id="previewCommissionTotal">₡0</strong>
+                                        </div>
+                                        <div class="col-6 col-md-3">
+                                            <small class="text-muted d-block">Comisión sin IVA</small>
+                                            <strong id="previewCommissionWithoutVAT">₡0</strong>
+                                        </div>
+                                        <div class="col-6 col-md-3">
+                                            <small class="text-muted d-block">IVA incluido</small>
+                                            <strong id="previewVatAmount">₡0</strong>
+                                        </div>
+                                    </div>
+                                    <p class="small text-muted mb-0 mt-3">
+                                        La comisión del 20% ya incluye el 13% de IVA.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                            <button type="submit" class="btn btn-success">Registrar venta</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>

@@ -1,0 +1,51 @@
+<div class="text-center mb-4">
+                    <h2>Gestión de ventas turísticas</h2>
+                    <p class="text-muted">Administra proveedores, tours y ventas de tu negocio</p>
+                </div>
+
+                <div class="card auth-card">
+                    <div class="card-body p-4">
+                        <ul class="nav nav-pills nav-fill mb-4" id="authTabs">
+                            <li class="nav-item">
+                                <button class="nav-link active" data-tab="login">Iniciar sesión</button>
+                            </li>
+                            <li class="nav-item">
+                                <button class="nav-link" data-tab="register">Registrarse</button>
+                            </li>
+                        </ul>
+
+                        <div id="alertBox" class="alert hidden" role="alert"></div>
+
+                        <form id="loginForm">
+                            <div class="mb-3">
+                                <label class="form-label">Correo electrónico</label>
+                                <input type="email" class="form-control" id="loginEmail" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Contraseña</label>
+                                <input type="password" class="form-control" id="loginPassword" required>
+                            </div>
+                            <button type="submit" class="btn btn-success w-100">Entrar</button>
+                        </form>
+
+                        <form id="registerForm" class="hidden">
+                            <div class="mb-3">
+                                <label class="form-label">Nombre completo</label>
+                                <input type="text" class="form-control" id="registerFullName" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Correo electrónico</label>
+                                <input type="email" class="form-control" id="registerEmail" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Teléfono</label>
+                                <input type="tel" class="form-control" id="registerPhone">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Contraseña</label>
+                                <input type="password" class="form-control" id="registerPassword" minlength="4" required>
+                            </div>
+                            <button type="submit" class="btn btn-success w-100">Crear cuenta</button>
+                        </form>
+                    </div>
+                </div>

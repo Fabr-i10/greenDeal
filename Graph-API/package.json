@@ -1,0 +1,17 @@
+{
+  "type": "module",
+  "dependencies": {
+    "@apollo/server": "^5.5.0",
+    "@as-integrations/express4": "^1.1.2",
+    "@graphql-tools/schema": "^10.0.31",
+    "bcrypt": "^6.0.0",
+    "better-sqlite3": "^12.8.0",
+    "cors": "^2.8.6",
+    "express": "^4.21.0",
+    "express-jwt": "^8.5.1",
+    "graphql": "^16.13.2",
+    "jsonwebtoken": "^9.0.3",
+    "knex": "^3.2.6",
+    "nanoid": "^5.1.7"
+  }
+}

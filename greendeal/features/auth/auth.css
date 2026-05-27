@@ -1,0 +1,21 @@
+.auth-card {
+  max-width: 420px;
+  margin: 2rem auto;
+  border: none;
+  background-color: var(--gd-surface);
+  box-shadow: 0 8px 24px var(--gd-shadow);
+}
+
+.auth-card .nav-pills .nav-link {
+  color: var(--gd-text-secondary);
+}
+
+.auth-card .nav-pills .nav-link.active {
+  background-color: var(--gd-primary);
+  color: var(--gd-text-on-primary);
+}
+
+.auth-card .nav-pills .nav-link:not(.active):hover {
+  background-color: var(--gd-surface-muted);
+  color: var(--gd-primary);
+}

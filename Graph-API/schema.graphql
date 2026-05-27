@@ -1,0 +1,129 @@
+type User {
+    id: ID!
+    fullName: String!
+    email: String!
+    phone: String
+    createdAt: String
+}
+
+type Provider {
+    id: ID!
+    companyName: String!
+    legalId: String!
+    phone: String!
+    email: String!
+    address: String!
+    createdAt: String
+}
+
+type Tour {
+    id: ID!
+    tourName: String!
+    description: String!
+    location: String!
+    pricePerPerson: Float!
+    provider: Provider!
+    createdAt: String
+}
+
+type Sale {
+    id: ID!
+    saleDate: String!
+    quantityPeople: Int!
+    totalSale: Float!
+    commissionTotal: Float!
+    commissionWithoutVAT: Float!
+    vatAmount: Float!
+    tour: Tour!
+    createdAt: String
+}
+
+type ProviderSublist {
+    data: [Provider]!
+}
+
+type TourSublist {
+    data: [Tour]!
+}
+
+type SaleSublist {
+    data: [Sale]!
+}
+
+type TopTourReport {
+    tourId: ID!
+    tourName: String!
+    salesCount: Int!
+    totalPeople: Int!
+    totalAmount: Float!
+}
+
+type MonthlyReport {
+    year: Int
+    month: Int
+    startDate: String
+    endDate: String
+    totalSales: Float!
+    totalCommissions: Float!
+    totalVAT: Float!
+    salesCount: Int!
+    topTours: [TopTourReport]!
+}
+
+type AuthPayload {
+    token: String!
+    user: User!
+}
+
+type Query {
+    me: User
+    provider(id: ID!): Provider
+    providers: ProviderSublist
+    tour(id: ID!): Tour
+    tours: TourSublist
+    sale(id: ID!): Sale
+    sales: SaleSublist
+    monthlyReport(year: Int!, month: Int!): MonthlyReport
+    dateRangeReport(startDate: String!, endDate: String!): MonthlyReport
+}
+
+type Mutation {
+    register(input: RegisterInput!): AuthPayload
+    createProvider(input: ProviderInput!): Provider
+    updateProvider(id: ID!, input: ProviderInput!): Provider
+    deleteProvider(id: ID!): Boolean
+    createTour(input: TourInput!): Tour
+    updateTour(id: ID!, input: TourInput!): Tour
+    deleteTour(id: ID!): Boolean
+    createSale(input: SaleInput!): Sale
+    deleteSale(id: ID!): Boolean
+}
+
+input RegisterInput {
+    fullName: String!
+    email: String!
+    password: String!
+    phone: String
+}
+
+input ProviderInput {
+    companyName: String!
+    legalId: String!
+    phone: String!
+    email: String!
+    address: String!
+}
+
+input TourInput {
+    tourName: String!
+    description: String!
+    location: String!
+    pricePerPerson: Float!
+    providerId: ID!
+}
+
+input SaleInput {
+    tourId: ID!
+    saleDate: String!
+    quantityPeople: Int!
+}

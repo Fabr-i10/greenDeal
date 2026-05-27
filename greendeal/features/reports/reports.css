@@ -1,0 +1,81 @@
+.report-filter-form {
+  width: fit-content;
+  max-width: 100%;
+}
+
+.reports-view-header {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.75rem;
+}
+
+.report-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 0.5rem;
+  padding: 0.5rem 0.65rem;
+  border: 1px solid var(--gd-border);
+  border-radius: 0.625rem;
+  background-color: var(--gd-surface);
+  box-shadow: 0 1px 4px var(--gd-shadow);
+}
+
+.report-filter-fields {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 0.5rem;
+}
+
+.report-filter-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.report-filter-form .form-label {
+  margin-bottom: 0;
+  color: var(--gd-text-muted);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.report-filter-form .form-control-sm,
+.report-filter-form .form-select-sm {
+  min-height: 1.875rem;
+  padding: 0.2rem 0.45rem;
+  font-size: 0.8125rem;
+}
+
+#reportYear {
+  width: 4.75rem;
+}
+
+#reportMonth {
+  width: 7.5rem;
+}
+
+#reportStartDate,
+#reportEndDate {
+  width: 9.25rem;
+}
+
+.report-mode-toggle .btn {
+  padding: 0.2rem 0.55rem;
+  font-size: 0.8125rem;
+}
+
+.report-mode-toggle .btn-outline-success {
+  --bs-btn-color: var(--gd-success);
+  --bs-btn-border-color: var(--gd-success);
+}
+
+.report-mode-toggle .btn-check:checked + .btn-outline-success {
+  background-color: var(--gd-success);
+  border-color: var(--gd-success);
+  color: #fff;
+}

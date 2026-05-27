@@ -1,0 +1,42 @@
+<div class="modal fade" id="tourFormPanel" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-lg modal-fullscreen-sm-down modal-dialog-scrollable modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="tourFormTitle">Nuevo tour</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                    </div>
+                    <form id="tourForm" class="panel-form">
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Nombre del tour</label>
+                                    <input type="text" class="form-control" id="tourName" required>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Proveedor</label>
+                                    <select class="form-select" id="tourProviderId" required>
+                                        <option value="">Seleccione un proveedor</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Ubicación</label>
+                                    <input type="text" class="form-control" id="tourLocation" required>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Precio por persona (₡)</label>
+                                    <input type="number" class="form-control" id="tourPricePerPerson" min="1" step="1" required>
+                                </div>
+                                <div class="col-12 mb-3">
+                                    <label class="form-label">Descripción</label>
+                                    <textarea class="form-control" id="tourDescription" rows="3" required></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                            <button type="submit" class="btn btn-success">Guardar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>

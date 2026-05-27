@@ -1,0 +1,45 @@
+:root {
+  /* Marca */
+  --gd-primary: #1a3830;
+  --gd-primary-dark: #122820;
+  --gd-secondary: #2e5848;
+  --gd-secondary-light: #4a7a66;
+
+  /* Fondos */
+  --gd-bg-mint: #c8edd4;
+  --gd-bg-lime: #d9f0a8;
+  --gd-bg-page: #edf7ef;
+  --gd-surface: #ffffff;
+  --gd-surface-muted: #e8f5ec;
+
+  /* Texto */
+  --gd-text-primary: #1a2e28;
+  --gd-text-secondary: #4a6358;
+  --gd-text-muted: #7a9488;
+  --gd-text-on-primary: #ffffff;
+
+  /* Utilidades */
+  --gd-border: #c5ddd0;
+  --gd-shadow: rgba(26, 56, 48, 0.08);
+  --gd-shadow-strong: rgba(26, 56, 48, 0.16);
+  --gd-success: #2e7d52;
+  --gd-success-light: #d4edda;
+  --gd-danger: #c0392b;
+
+  /* Dashboard oscuro */
+  --gd-dashboard-bg: #122820;
+  --gd-dashboard-mid: #1a3830;
+  --gd-dashboard-glow: #2e5848;
+  --gd-glass-bg: rgba(18, 40, 32, 0.68);
+  --gd-glass-border: rgba(196, 217, 176, 0.22);
+  --gd-glass-highlight: rgba(255, 255, 255, 0.08);
+  --gd-dashboard-text: #eef6f0;
+  --gd-dashboard-muted: rgba(232, 245, 236, 0.68);
+  --gd-accent-gold: #d4c48a;
+  --gd-sidebar-cream: #f3f6ef;
+
+  /* Alias legacy */
+  --green-primary: var(--gd-primary);
+  --green-dark: var(--gd-primary-dark);
+  --green-light: var(--gd-surface-muted);
+}
