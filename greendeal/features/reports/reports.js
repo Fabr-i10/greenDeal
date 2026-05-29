@@ -4,6 +4,7 @@ import {
     getMonthName,
     formatReportDate,
 } from "../../js/reportservice.js"
+import { getFriendlyMessage } from "../../js/errors.js"
 import { formatCurrency } from "../../js/tourservice.js"
 import { showAppAlert, hideAppAlert } from "../../shared/js/alerts.js"
 
@@ -71,8 +72,9 @@ export const loadReport = async () => {
         document.getElementById("reportPeriodLabel").textContent = getReportPeriodLabel(report)
         renderTopToursTable(report.topTours)
     } catch (err) {
-        body.innerHTML = `<tr><td colspan="5" class="text-center text-danger py-4">${err.message}</td></tr>`
-        showAppAlert(err.message || "No se pudo generar el reporte", "danger")
+        const message = getFriendlyMessage(err, "No se pudo generar el reporte")
+        body.innerHTML = `<tr><td colspan="5" class="text-center text-danger py-4">${message}</td></tr>`
+        showAppAlert(message, "danger")
     }
 }
 

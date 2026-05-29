@@ -1,6 +1,9 @@
 import { getProviders } from "../../js/providerservice.js"
 import { getTours } from "../../js/tourservice.js"
 import { getSales } from "../../js/salesservice.js"
+import { newSaleSubscription, closeSubscription } from "../../js/wsservice.js"
+import { urlAPI } from "../../js/api.js"
+import { loadSales } from "../../features/sales/sales.js"
 import { hideAlert } from "./alerts.js"
 import { getUserInitials, formatProfileDate } from "./utils.js"
 import { updateSidebarToggle, initSidebarCollapse } from "./sidebar.js"
@@ -8,12 +11,61 @@ import { closeProfileDrawer } from "./profile.js"
 import { closeSidebar } from "./sidebar.js"
 import { showView } from "./router.js"
 
+let wsConnection = null
+
+export const requestNotifications = () => {
+    if (window.Notification && Notification.permission === "default") {
+        Notification.requestPermission()
+    }
+}
+
+export const startRealtime = async () => {
+    if (!navigator.onLine) return
+
+    try {
+        const res = await fetch(urlAPI, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ query: "{ __typename }" }),
+        })
+        const data = await res.json()
+        if (!res.ok || data.offline || !data.data?.__typename) return
+    } catch {
+        return
+    }
+
+    closeSubscription()
+    wsConnection = newSaleSubscription(async (sale) => {
+        console.log("Venta notificada -->", sale)
+        if (window.Notification && Notification.permission === "granted") {
+            new Notification("GreenDeal", {
+                body: `Nueva venta: ${sale.tour?.tourName || "Tour"} - ${sale.quantityPeople} persona(s)`,
+            })
+        }
+        await refreshDashboardCounts()
+        const salesView = document.getElementById("salesView")
+        if (salesView && !salesView.classList.contains("hidden")) {
+            await loadSales()
+        }
+    })
+}
+
+export const stopRealtime = () => {
+    closeSubscription()
+    wsConnection = null
+}
+
+export const reconnectRealtime = () => {
+    if (navigator.onLine) startRealtime()
+}
+
 export const saveSession = (token, user) => {
     sessionStorage.setItem("access_token", token)
     sessionStorage.setItem("user", JSON.stringify(user))
 }
 
 export const clearSession = () => {
+    stopRealtime()
     sessionStorage.removeItem("access_token")
     sessionStorage.removeItem("user")
 }
@@ -58,6 +110,8 @@ export const showDashboard = (user) => {
     populateProfile(user)
     showView("dashboard")
     refreshDashboardCounts()
+    requestNotifications()
+    startRealtime()
 }
 
 export const showAuth = () => {

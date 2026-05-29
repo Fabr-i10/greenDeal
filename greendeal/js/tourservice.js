@@ -1,4 +1,5 @@
 import { fetchAPI } from "./api.js"
+import { getGraphQLList, getGraphQLMutation } from "./errors.js"
 
 export const getTours = async () => {
     const query = `
@@ -20,10 +21,12 @@ export const getTours = async () => {
         }
     `
     const data = await fetchAPI(query)
-    if (data.errors) {
-        throw new Error(data.errors[0]?.message || "Error al cargar tours")
-    }
-    return data.data.tours.data
+    return getGraphQLList(
+        data,
+        "tours",
+        "Sin conexión: no hay tours en caché. Visita esta sección online al menos una vez.",
+        "Error al cargar tours"
+    )
 }
 
 export const createTour = async (input) => {
@@ -38,10 +41,7 @@ export const createTour = async (input) => {
         }
     `
     const data = await fetchAPI(query, { input })
-    if (data.errors) {
-        throw new Error(data.errors[0]?.message || "Error al crear tour")
-    }
-    return data.data.createTour
+    return getGraphQLMutation(data, "createTour", "Error al crear tour")
 }
 
 export const updateTour = async (id, input) => {
@@ -56,10 +56,7 @@ export const updateTour = async (id, input) => {
         }
     `
     const data = await fetchAPI(query, { id, input })
-    if (data.errors) {
-        throw new Error(data.errors[0]?.message || "Error al actualizar tour")
-    }
-    return data.data.updateTour
+    return getGraphQLMutation(data, "updateTour", "Error al actualizar tour")
 }
 
 export const deleteTour = async (id) => {
@@ -69,10 +66,7 @@ export const deleteTour = async (id) => {
         }
     `
     const data = await fetchAPI(query, { id })
-    if (data.errors) {
-        throw new Error(data.errors[0]?.message || "Error al eliminar tour")
-    }
-    return data.data.deleteTour
+    return getGraphQLMutation(data, "deleteTour", "Error al eliminar tour")
 }
 
 export const formatCurrency = (amount) => {

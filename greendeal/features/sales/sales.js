@@ -1,4 +1,5 @@
 import { getSales, createSale, deleteSale, calculateSalePreview } from "../../js/salesservice.js"
+import { getFriendlyMessage } from "../../js/errors.js"
 import { getTours, formatCurrency } from "../../js/tourservice.js"
 import { showAppAlert } from "../../shared/js/alerts.js"
 import { showConfirmDialog } from "../../shared/js/confirm.js"
@@ -41,7 +42,7 @@ export const loadSales = async () => {
         renderSalesTable(currentSales)
         document.getElementById("saleCount").textContent = currentSales.length
     } catch (err) {
-        body.innerHTML = `<tr><td colspan="8" class="text-center text-danger py-4">${err.message}</td></tr>`
+        body.innerHTML = `<tr><td colspan="8" class="text-center text-danger py-4">${getFriendlyMessage(err, "Error al cargar ventas")}</td></tr>`
     }
 }
 
@@ -85,7 +86,7 @@ const openSaleForm = async () => {
         updateSalePreview()
         saleFormPanel.show()
     } catch (err) {
-        showAppAlert(err.message || "No se pudo abrir el formulario", "danger")
+        showAppAlert(getFriendlyMessage(err, "No se pudo abrir el formulario"), "danger")
     }
 }
 
@@ -110,14 +111,19 @@ export const initSales = () => {
                 showAppAlert("La cantidad debe ser mayor a cero", "warning")
                 return
             }
-            await createSale(input)
-            showAppAlert("Venta registrada correctamente", "success")
+            const sale = await createSale(input)
+            showAppAlert(
+                sale.offline
+                    ? "Venta guardada sin conexión. Se sincronizará al reconectar."
+                    : "Venta registrada correctamente",
+                sale.offline ? "warning" : "success"
+            )
             saleFormPanel.hide()
             document.getElementById("saleForm").reset()
             await loadSales()
             await refreshDashboardCounts()
         } catch (err) {
-            showAppAlert(err.message || "No se pudo registrar la venta", "danger")
+            showAppAlert(getFriendlyMessage(err, "No se pudo registrar la venta"), "danger")
         }
     })
     document.getElementById("salesTableBody")?.addEventListener("click", async (e) => {
@@ -137,7 +143,7 @@ export const initSales = () => {
             await loadSales()
             await refreshDashboardCounts()
         } catch (err) {
-            showAppAlert(err.message || "No se pudo eliminar", "danger")
+            showAppAlert(getFriendlyMessage(err, "No se pudo eliminar la venta"), "danger")
         }
     })
 }

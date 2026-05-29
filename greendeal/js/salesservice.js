@@ -1,4 +1,5 @@
 import { fetchAPI } from "./api.js"
+import { getGraphQLList, getGraphQLMutation } from "./errors.js"
 
 export const getSales = async () => {
     const query = `
@@ -23,10 +24,12 @@ export const getSales = async () => {
         }
     `
     const data = await fetchAPI(query)
-    if (data.errors) {
-        throw new Error(data.errors[0]?.message || "Error al cargar ventas")
-    }
-    return data.data.sales.data
+    return getGraphQLList(
+        data,
+        "sales",
+        "Sin conexión: no hay ventas en caché. Visita esta sección online al menos una vez.",
+        "Error al cargar ventas"
+    )
 }
 
 export const createSale = async (input) => {
@@ -47,10 +50,7 @@ export const createSale = async (input) => {
         }
     `
     const data = await fetchAPI(query, { input })
-    if (data.errors) {
-        throw new Error(data.errors[0]?.message || "Error al registrar venta")
-    }
-    return data.data.createSale
+    return getGraphQLMutation(data, "createSale", "Error al registrar venta")
 }
 
 export const deleteSale = async (id) => {
@@ -60,10 +60,7 @@ export const deleteSale = async (id) => {
         }
     `
     const data = await fetchAPI(query, { id })
-    if (data.errors) {
-        throw new Error(data.errors[0]?.message || "Error al eliminar venta")
-    }
-    return data.data.deleteSale
+    return getGraphQLMutation(data, "deleteSale", "Error al eliminar venta")
 }
 
 export const calculateSalePreview = (pricePerPerson, quantityPeople) => {

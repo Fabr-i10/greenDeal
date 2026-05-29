@@ -1,4 +1,5 @@
 import { GraphQLError } from "graphql"
+import { PubSub } from "graphql-subscriptions"
 import { buildToken } from "./auth.js"
 import { createUser, getUser } from "./services/userservice.js"
 import {
@@ -23,6 +24,8 @@ import {
 } from "./services/salesservice.js"
 import { getMonthlyReport, getDateRangeReport } from "./services/reportservice.js"
 
+const pubSub = new PubSub()
+
 function requireAuth(context) {
     if (!context.user) {
         throw new GraphQLError("No autorizado", {
@@ -30,6 +33,26 @@ function requireAuth(context) {
         })
     }
     return context.user.sub
+}
+
+function handleProviderDeleteError(err) {
+    if (err.message === "PROVIDER_HAS_TOURS") {
+        throw new GraphQLError(
+            "No puedes eliminar este proveedor porque tiene tours asociados. Elimina primero los tours.",
+            { extensions: { code: "BAD_USER_INPUT" } }
+        )
+    }
+    throw err
+}
+
+function handleTourDeleteError(err) {
+    if (err.message === "TOUR_HAS_SALES") {
+        throw new GraphQLError(
+            "No puedes eliminar este tour porque tiene ventas registradas. Elimina primero las ventas.",
+            { extensions: { code: "BAD_USER_INPUT" } }
+        )
+    }
+    throw err
 }
 
 function handleTourError(err) {
@@ -196,13 +219,18 @@ export const resolvers = {
         },
         deleteProvider: async (_root, { id }, context) => {
             const userId = requireAuth(context)
-            const deleted = await deleteProvider(id, userId)
-            if (!deleted) {
-                throw new GraphQLError("Proveedor no existe", {
-                    extensions: { code: "NOT_FOUND" },
-                })
+            try {
+                const deleted = await deleteProvider(id, userId)
+                if (!deleted) {
+                    throw new GraphQLError("Proveedor no existe", {
+                        extensions: { code: "NOT_FOUND" },
+                    })
+                }
+                return true
+            } catch (err) {
+                if (err.extensions?.code) throw err
+                handleProviderDeleteError(err)
             }
-            return true
         },
         createTour: async (_root, { input }, context) => {
             const userId = requireAuth(context)
@@ -229,18 +257,25 @@ export const resolvers = {
         },
         deleteTour: async (_root, { id }, context) => {
             const userId = requireAuth(context)
-            const deleted = await deleteTour(id, userId)
-            if (!deleted) {
-                throw new GraphQLError("Tour no existe", {
-                    extensions: { code: "NOT_FOUND" },
-                })
+            try {
+                const deleted = await deleteTour(id, userId)
+                if (!deleted) {
+                    throw new GraphQLError("Tour no existe", {
+                        extensions: { code: "NOT_FOUND" },
+                    })
+                }
+                return true
+            } catch (err) {
+                if (err.extensions?.code) throw err
+                handleTourDeleteError(err)
             }
-            return true
         },
         createSale: async (_root, { input }, context) => {
             const userId = requireAuth(context)
             try {
-                return await createSale({ userId, ...input })
+                const sale = await createSale({ userId, ...input })
+                pubSub.publish("NEW_SALE", { newSale: sale })
+                return sale
             } catch (err) {
                 handleSaleError(err)
             }
@@ -254,6 +289,14 @@ export const resolvers = {
                 })
             }
             return true
+        },
+    },
+    Subscription: {
+        newSale: {
+            subscribe: (_root, _args, context) => {
+                requireAuth(context)
+                return pubSub.asyncIterableIterator("NEW_SALE")
+            },
         },
     },
 }

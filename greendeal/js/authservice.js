@@ -1,12 +1,24 @@
 import { fetchAPI, urlLogin } from "./api.js"
+import { assertGraphQL, getGraphQLField, getGraphQLMutation } from "./errors.js"
 
 export const loginUser = async (email, password) => {
+    if (!navigator.onLine) {
+        throw new Error("Sin conexión. Necesitas internet para iniciar sesión.")
+    }
+
     const options = {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
     }
-    const result = await fetch(urlLogin, options)
+
+    let result
+    try {
+        result = await fetch(urlLogin, options)
+    } catch {
+        throw new Error("Sin conexión. Necesitas internet para iniciar sesión.")
+    }
+
     if (!result.ok) {
         throw new Error("Credenciales inválidas")
     }
@@ -14,6 +26,10 @@ export const loginUser = async (email, password) => {
 }
 
 export const registerUser = async (input) => {
+    if (!navigator.onLine) {
+        throw new Error("Sin conexión. Necesitas internet para registrarte.")
+    }
+
     const query = `
         mutation register($input: RegisterInput!) {
             register(input: $input) {
@@ -28,10 +44,7 @@ export const registerUser = async (input) => {
         }
     `
     const data = await fetchAPI(query, { input })
-    if (data.errors) {
-        throw new Error(data.errors[0]?.message || "Error al registrar")
-    }
-    return data.data.register
+    return getGraphQLMutation(data, "register", "Error al registrar la cuenta")
 }
 
 export const getMe = async () => {
@@ -47,8 +60,15 @@ export const getMe = async () => {
         }
     `
     const data = await fetchAPI(query)
-    if (data.errors) {
-        throw new Error(data.errors[0]?.message || "Sesión inválida")
+    assertGraphQL(data, "Sesión inválida")
+
+    if (data.data?.me) return data.data.me
+
+    if (data.offline) {
+        const cached = sessionStorage.getItem("user")
+        if (cached) return JSON.parse(cached)
+        throw new Error("Sin conexión: no hay datos de sesión en caché.")
     }
-    return data.data.me
+
+    throw new Error("Sesión inválida. Inicia sesión nuevamente.")
 }

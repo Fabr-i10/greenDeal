@@ -38,6 +38,11 @@ export async function deleteProvider(id, userId) {
     const existing = await getProvider(id, userId)
     if (!existing) return false
 
+    const relatedTours = await connection.table("tours").where({ providerId: id, userId }).select("id")
+    if (relatedTours.length > 0) {
+        throw new Error("PROVIDER_HAS_TOURS")
+    }
+
     await providertb().where({ id, userId }).delete()
     return true
 }

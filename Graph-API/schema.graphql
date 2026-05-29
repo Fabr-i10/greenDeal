@@ -127,3 +127,8 @@ input SaleInput {
     saleDate: String!
     quantityPeople: Int!
 }
+
+# Subscripciones -- Subscription
+type Subscription {
+    newSale: Sale
+}

@@ -1,4 +1,5 @@
 import { getTours, createTour, updateTour, deleteTour, formatCurrency } from "../../js/tourservice.js"
+import { getFriendlyMessage } from "../../js/errors.js"
 import { showAppAlert } from "../../shared/js/alerts.js"
 import { showConfirmDialog } from "../../shared/js/confirm.js"
 import { refreshDashboardCounts } from "../../shared/js/session.js"
@@ -37,7 +38,7 @@ export const loadTours = async () => {
         renderToursTable(currentTours)
         document.getElementById("tourCount").textContent = currentTours.length
     } catch (err) {
-        body.innerHTML = `<tr><td colspan="6" class="text-center text-danger py-4">${err.message}</td></tr>`
+        body.innerHTML = `<tr><td colspan="6" class="text-center text-danger py-4">${getFriendlyMessage(err, "Error al cargar tours")}</td></tr>`
     }
 }
 
@@ -56,7 +57,7 @@ const openTourForm = async (tour = null) => {
         document.getElementById("tourDescription").value = tour?.description || ""
         tourFormPanel.show()
     } catch (err) {
-        showAppAlert(err.message || "No se pudo abrir el formulario", "danger")
+        showAppAlert(getFriendlyMessage(err, "No se pudo abrir el formulario"), "danger")
     }
 }
 
@@ -92,7 +93,7 @@ export const initTours = () => {
             await loadTours()
             await refreshDashboardCounts()
         } catch (err) {
-            showAppAlert(err.message || "No se pudo guardar el tour", "danger")
+            showAppAlert(getFriendlyMessage(err, "No se pudo guardar el tour"), "danger")
         }
     })
     document.getElementById("toursTableBody")?.addEventListener("click", async (e) => {
@@ -117,7 +118,7 @@ export const initTours = () => {
                 await loadTours()
                 await refreshDashboardCounts()
             } catch (err) {
-                showAppAlert(err.message || "No se pudo eliminar", "danger")
+                showAppAlert(getFriendlyMessage(err, "No se pudo eliminar el tour"), "danger")
             }
         }
     })

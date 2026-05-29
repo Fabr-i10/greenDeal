@@ -1,4 +1,5 @@
 import { fetchAPI } from "./api.js"
+import { getGraphQLList, getGraphQLMutation } from "./errors.js"
 
 export const getProviders = async () => {
     const query = `
@@ -17,10 +18,12 @@ export const getProviders = async () => {
         }
     `
     const data = await fetchAPI(query)
-    if (data.errors) {
-        throw new Error(data.errors[0]?.message || "Error al cargar proveedores")
-    }
-    return data.data.providers.data
+    return getGraphQLList(
+        data,
+        "providers",
+        "Sin conexión: no hay proveedores en caché. Visita esta sección online al menos una vez.",
+        "Error al cargar proveedores"
+    )
 }
 
 export const createProvider = async (input) => {
@@ -37,10 +40,7 @@ export const createProvider = async (input) => {
         }
     `
     const data = await fetchAPI(query, { input })
-    if (data.errors) {
-        throw new Error(data.errors[0]?.message || "Error al crear proveedor")
-    }
-    return data.data.createProvider
+    return getGraphQLMutation(data, "createProvider", "Error al crear proveedor")
 }
 
 export const updateProvider = async (id, input) => {
@@ -57,10 +57,7 @@ export const updateProvider = async (id, input) => {
         }
     `
     const data = await fetchAPI(query, { id, input })
-    if (data.errors) {
-        throw new Error(data.errors[0]?.message || "Error al actualizar proveedor")
-    }
-    return data.data.updateProvider
+    return getGraphQLMutation(data, "updateProvider", "Error al actualizar proveedor")
 }
 
 export const deleteProvider = async (id) => {
@@ -70,8 +67,5 @@ export const deleteProvider = async (id) => {
         }
     `
     const data = await fetchAPI(query, { id })
-    if (data.errors) {
-        throw new Error(data.errors[0]?.message || "Error al eliminar proveedor")
-    }
-    return data.data.deleteProvider
+    return getGraphQLMutation(data, "deleteProvider", "Error al eliminar proveedor")
 }

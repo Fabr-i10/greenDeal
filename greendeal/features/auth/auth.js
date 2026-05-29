@@ -1,4 +1,5 @@
 import { loginUser, registerUser } from "../../js/authservice.js"
+import { getFriendlyMessage } from "../../js/errors.js"
 import { hideAlert, showAlert } from "../../shared/js/alerts.js"
 import { saveSession, showDashboard, showAuth, clearSession } from "../../shared/js/session.js"
 
@@ -32,7 +33,7 @@ export const initAuth = () => {
             saveSession(response.token, response.user)
             showDashboard(response.user)
         } catch (err) {
-            showAlert(err.message || "No se pudo iniciar sesión")
+            showAlert(getFriendlyMessage(err, "No se pudo iniciar sesión"))
         }
     })
 
@@ -50,7 +51,7 @@ export const initAuth = () => {
             saveSession(response.token, response.user)
             showDashboard(response.user)
         } catch (err) {
-            showAlert(err.message || "No se pudo registrar la cuenta")
+            showAlert(getFriendlyMessage(err, "No se pudo registrar la cuenta"))
         }
     })
 

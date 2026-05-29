@@ -1,4 +1,5 @@
 import { fetchAPI } from "./api.js"
+import { getGraphQLField } from "./errors.js"
 
 const reportBaseFields = `
     totalSales
@@ -14,6 +15,9 @@ const reportBaseFields = `
     }
 `
 
+const OFFLINE_REPORT_MSG =
+    "Sin conexión: los reportes requieren internet y no están disponibles offline."
+
 export const getMonthlyReport = async (year, month) => {
     const query = `
         query monthlyReport($year: Int!, $month: Int!) {
@@ -25,10 +29,10 @@ export const getMonthlyReport = async (year, month) => {
         }
     `
     const data = await fetchAPI(query, { year, month })
-    if (data.errors) {
-        throw new Error(data.errors[0]?.message || "Error al generar reporte")
-    }
-    return data.data.monthlyReport
+    return getGraphQLField(data, "monthlyReport", {
+        offlineMessage: OFFLINE_REPORT_MSG,
+        fallback: "No se pudo generar el reporte mensual.",
+    })
 }
 
 export const getDateRangeReport = async (startDate, endDate) => {
@@ -42,10 +46,10 @@ export const getDateRangeReport = async (startDate, endDate) => {
         }
     `
     const data = await fetchAPI(query, { startDate, endDate })
-    if (data.errors) {
-        throw new Error(data.errors[0]?.message || "Error al generar reporte")
-    }
-    return data.data.dateRangeReport
+    return getGraphQLField(data, "dateRangeReport", {
+        offlineMessage: OFFLINE_REPORT_MSG,
+        fallback: "No se pudo generar el reporte por rango de fechas.",
+    })
 }
 
 export const getMonthName = (month) => {

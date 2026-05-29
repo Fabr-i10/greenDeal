@@ -4,6 +4,7 @@ import {
     updateProvider,
     deleteProvider,
 } from "../../js/providerservice.js"
+import { getFriendlyMessage } from "../../js/errors.js"
 import { showAppAlert } from "../../shared/js/alerts.js"
 import { showConfirmDialog } from "../../shared/js/confirm.js"
 
@@ -40,7 +41,7 @@ export const loadProviders = async () => {
         renderProvidersTable(currentProviders)
         document.getElementById("providerCount").textContent = currentProviders.length
     } catch (err) {
-        body.innerHTML = `<tr><td colspan="6" class="text-center text-danger py-4">${err.message}</td></tr>`
+        body.innerHTML = `<tr><td colspan="6" class="text-center text-danger py-4">${getFriendlyMessage(err, "Error al cargar proveedores")}</td></tr>`
     }
 }
 
@@ -96,7 +97,7 @@ export const initProviders = () => {
             editingProviderId = null
             await loadProviders()
         } catch (err) {
-            showAppAlert(err.message || "No se pudo guardar el proveedor", "danger")
+            showAppAlert(getFriendlyMessage(err, "No se pudo guardar el proveedor"), "danger")
         }
     })
     document.getElementById("providersTableBody")?.addEventListener("click", async (e) => {
@@ -120,7 +121,7 @@ export const initProviders = () => {
                 showAppAlert("Proveedor eliminado correctamente", "success")
                 await loadProviders()
             } catch (err) {
-                showAppAlert(err.message || "No se pudo eliminar", "danger")
+                showAppAlert(getFriendlyMessage(err, "No se pudo eliminar el proveedor"), "danger")
             }
         }
     })

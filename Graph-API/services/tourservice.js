@@ -58,6 +58,11 @@ export async function deleteTour(id, userId) {
     const existing = await getTour(id, userId)
     if (!existing) return false
 
+    const relatedSales = await connection.table("sales").where({ tourId: id, userId }).select("id")
+    if (relatedSales.length > 0) {
+        throw new Error("TOUR_HAS_SALES")
+    }
+
     await tourtb().where({ id, userId }).delete()
     return true
 }
