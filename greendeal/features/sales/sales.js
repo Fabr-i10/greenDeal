@@ -4,7 +4,7 @@ import { getTours, formatCurrency } from "../../js/tourservice.js"
 import { showAppAlert } from "../../shared/js/alerts.js"
 import { showConfirmDialog } from "../../shared/js/confirm.js"
 import { refreshDashboardCounts } from "../../shared/js/session.js"
-import { formatDate } from "../../shared/js/utils.js"
+import { formatDate, dataTd, tableEmptyRow } from "../../shared/js/utils.js"
 
 let currentSales = []
 let salesTourOptions = []
@@ -13,21 +13,24 @@ let saleFormPanel = null
 const renderSalesTable = (sales) => {
     const body = document.getElementById("salesTableBody")
     if (!sales.length) {
-        body.innerHTML = `<tr><td colspan="8" class="text-center text-muted py-4">No hay ventas registradas.</td></tr>`
+        body.innerHTML = tableEmptyRow(8, "No hay ventas registradas.")
         return
     }
     body.innerHTML = sales
         .map(
             (s) => `
-            <tr>
-                <td>${formatDate(s.saleDate)}</td><td>${s.tour.tourName}</td>
-                <td class="text-end">${s.quantityPeople}</td>
-                <td class="text-end">${formatCurrency(s.totalSale)}</td>
-                <td class="text-end">${formatCurrency(s.commissionTotal)}</td>
-                <td class="text-end">${formatCurrency(s.commissionWithoutVAT)}</td>
-                <td class="text-end">${formatCurrency(s.vatAmount)}</td>
-                <td class="text-end table-actions">
-                    <button type="button" class="btn btn-sm btn-outline-danger" data-sale-action="delete" data-id="${s.id}"><i class="bx bx-trash"></i></button>
+            <tr class="mobile-data-card">
+                ${dataTd("Tour", s.tour.tourName, "mobile-card-title")}
+                ${dataTd("Fecha", formatDate(s.saleDate))}
+                ${dataTd("Personas", s.quantityPeople, "text-end")}
+                ${dataTd("Total venta", formatCurrency(s.totalSale), "text-end")}
+                ${dataTd("Comisión (20%)", formatCurrency(s.commissionTotal), "text-end")}
+                ${dataTd("Comisión sin IVA", formatCurrency(s.commissionWithoutVAT), "text-end")}
+                ${dataTd("IVA", formatCurrency(s.vatAmount), "text-end")}
+                <td data-label="Acciones" class="text-end table-actions table-actions-cell">
+                    <button type="button" class="btn btn-sm btn-outline-danger" data-sale-action="delete" data-id="${s.id}">
+                        <i class="bx bx-trash"></i><span class="btn-label-mobile">Eliminar</span>
+                    </button>
                 </td>
             </tr>`
         )
@@ -36,13 +39,13 @@ const renderSalesTable = (sales) => {
 
 export const loadSales = async () => {
     const body = document.getElementById("salesTableBody")
-    body.innerHTML = `<tr><td colspan="8" class="text-center text-muted py-4">Cargando ventas...</td></tr>`
+    body.innerHTML = tableEmptyRow(8, "Cargando ventas...")
     try {
         currentSales = await getSales()
         renderSalesTable(currentSales)
         document.getElementById("saleCount").textContent = currentSales.length
     } catch (err) {
-        body.innerHTML = `<tr><td colspan="8" class="text-center text-danger py-4">${getFriendlyMessage(err, "Error al cargar ventas")}</td></tr>`
+        body.innerHTML = tableEmptyRow(8, getFriendlyMessage(err, "Error al cargar ventas"), "danger")
     }
 }
 

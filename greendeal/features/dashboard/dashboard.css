@@ -65,12 +65,13 @@
   color: var(--gd-dashboard-muted);
 }
 
-#dashboardSection .form-control,
-#dashboardSection .form-select {
+#dashboardSection .form-control {
   background-color: rgba(255, 255, 255, 0.92);
   border-color: rgba(197, 221, 208, 0.55);
   color: var(--gd-text-primary);
 }
+
+/* .form-select: estilos en entity-forms.css (flecha única, lista oscura) */
 
 #dashboardSection .alert {
   backdrop-filter: blur(8px);
@@ -204,6 +205,71 @@
 
 .stat-card .card-body {
   padding: 1.25rem;
+}
+
+#dashboardSection .sidebar-rail-toggle {
+  background: linear-gradient(
+    165deg,
+    var(--gd-dashboard-glow) 0%,
+    var(--gd-success) 45%,
+    var(--gd-secondary) 100%
+  );
+  border-color: rgba(196, 217, 176, 0.5);
+  color: var(--gd-accent-gold);
+  box-shadow:
+    0 6px 20px rgba(0, 0, 0, 0.28),
+    0 0 0 1px rgba(255, 255, 255, 0.1) inset;
+}
+
+#dashboardSection .sidebar-rail-toggle:hover {
+  background: linear-gradient(165deg, #3d7a62 0%, #3d9f6c 45%, var(--gd-secondary-light) 100%);
+  color: var(--gd-bg-lime);
+  border-color: rgba(217, 240, 168, 0.7);
+}
+
+@media (max-width: 767.98px) {
+  body.app-dashboard .mobile-bottom-nav {
+    background: rgba(18, 40, 32, 0.97);
+    border-top-color: rgba(196, 217, 176, 0.18);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+
+  body.app-dashboard .mobile-nav-item {
+    color: rgba(232, 245, 236, 0.55);
+  }
+
+  body.app-dashboard .mobile-nav-item.active {
+    color: var(--gd-accent-gold);
+    background: rgba(255, 255, 255, 0.08);
+  }
+
+  #dashboardView .row.g-3 {
+    --bs-gutter-y: 0.65rem;
+  }
+
+  #dashboardView .stat-card .card-body {
+    padding: 0.875rem 1rem;
+  }
+
+  #dashboardView .stat-icon {
+    width: 42px;
+    height: 42px;
+    font-size: 1.25rem;
+  }
+
+  #dashboardView .stat-card h4 {
+    font-size: 1.35rem;
+  }
+
+  #dashboardView .stat-card h6 {
+    font-size: 0.75rem;
+  }
+
+  #dashboardView .dashboard-card .card-body p {
+    font-size: 0.875rem;
+    line-height: 1.45;
+  }
 }
 
 .stat-icon {

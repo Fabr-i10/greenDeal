@@ -5,6 +5,7 @@ import {
     deleteProvider,
 } from "../../js/providerservice.js"
 import { getFriendlyMessage } from "../../js/errors.js"
+import { dataTd, tableEmptyRow } from "../../shared/js/utils.js"
 import { showAppAlert } from "../../shared/js/alerts.js"
 import { showConfirmDialog } from "../../shared/js/confirm.js"
 
@@ -15,18 +16,25 @@ let providerFormPanel = null
 const renderProvidersTable = (providers) => {
     const providersTableBody = document.getElementById("providersTableBody")
     if (!providers.length) {
-        providersTableBody.innerHTML = `<tr><td colspan="6" class="text-center text-muted py-4">No hay proveedores registrados.</td></tr>`
+        providersTableBody.innerHTML = tableEmptyRow(6, "No hay proveedores registrados.")
         return
     }
     providersTableBody.innerHTML = providers
         .map(
             (p) => `
-            <tr>
-                <td>${p.companyName}</td><td>${p.legalId}</td><td>${p.phone}</td>
-                <td>${p.email}</td><td>${p.address}</td>
-                <td class="text-end table-actions">
-                    <button type="button" class="btn btn-sm btn-outline-success me-1" data-action="edit" data-id="${p.id}"><i class="bx bx-edit"></i></button>
-                    <button type="button" class="btn btn-sm btn-outline-danger" data-action="delete" data-id="${p.id}"><i class="bx bx-trash"></i></button>
+            <tr class="mobile-data-card">
+                ${dataTd("Empresa", p.companyName, "mobile-card-title")}
+                ${dataTd("Cédula jurídica", p.legalId)}
+                ${dataTd("Teléfono", p.phone)}
+                ${dataTd("Correo", p.email)}
+                ${dataTd("Dirección", p.address)}
+                <td data-label="Acciones" class="text-end table-actions table-actions-cell">
+                    <button type="button" class="btn btn-sm btn-outline-success me-1" data-action="edit" data-id="${p.id}">
+                        <i class="bx bx-edit"></i><span class="btn-label-mobile">Editar</span>
+                    </button>
+                    <button type="button" class="btn btn-sm btn-outline-danger" data-action="delete" data-id="${p.id}">
+                        <i class="bx bx-trash"></i><span class="btn-label-mobile">Eliminar</span>
+                    </button>
                 </td>
             </tr>`
         )
@@ -35,13 +43,13 @@ const renderProvidersTable = (providers) => {
 
 export const loadProviders = async () => {
     const body = document.getElementById("providersTableBody")
-    body.innerHTML = `<tr><td colspan="6" class="text-center text-muted py-4">Cargando proveedores...</td></tr>`
+    body.innerHTML = tableEmptyRow(6, "Cargando proveedores...")
     try {
         currentProviders = await getProviders()
         renderProvidersTable(currentProviders)
         document.getElementById("providerCount").textContent = currentProviders.length
     } catch (err) {
-        body.innerHTML = `<tr><td colspan="6" class="text-center text-danger py-4">${getFriendlyMessage(err, "Error al cargar proveedores")}</td></tr>`
+        body.innerHTML = tableEmptyRow(6, getFriendlyMessage(err, "Error al cargar proveedores"), "danger")
     }
 }
 

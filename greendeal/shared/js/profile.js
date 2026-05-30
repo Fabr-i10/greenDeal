@@ -7,6 +7,7 @@ export const closeProfileDrawer = () => {
     profileDrawer?.setAttribute("aria-hidden", "true")
     profileMiniCard?.classList.remove("active")
     profileMiniCard?.setAttribute("aria-expanded", "false")
+    document.getElementById("profileHeaderBtn")?.setAttribute("aria-expanded", "false")
 }
 
 export const openProfileDrawer = () => {
@@ -17,6 +18,7 @@ export const openProfileDrawer = () => {
     profileDrawer?.setAttribute("aria-hidden", "false")
     profileMiniCard?.classList.add("active")
     profileMiniCard?.setAttribute("aria-expanded", "true")
+    document.getElementById("profileHeaderBtn")?.setAttribute("aria-expanded", "true")
 }
 
 export const toggleProfileDrawer = () => {

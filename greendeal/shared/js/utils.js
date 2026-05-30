@@ -19,6 +19,15 @@ export const formatProfileDate = (value) => {
     }).format(date)
 }
 
+/** Celda con etiqueta para vista tarjeta en móvil (data-label). */
+export const dataTd = (label, content, className = "") => {
+    const cls = className ? ` class="${className}"` : ""
+    return `<td data-label="${label}"${cls}>${content}</td>`
+}
+
+export const tableEmptyRow = (colspan, message, type = "muted") =>
+    `<tr class="table-empty-row"><td colspan="${colspan}" class="table-empty text-center text-${type} py-4">${message}</td></tr>`
+
 export const formatDate = (value) => {
     if (!value) return "-"
     const [year, month, day] = value.split("-")

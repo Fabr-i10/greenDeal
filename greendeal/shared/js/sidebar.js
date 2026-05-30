@@ -1,4 +1,4 @@
-import { closeProfileDrawer } from "./profile.js"
+import { closeProfileDrawer, toggleProfileDrawer } from "./profile.js"
 import { showView } from "./router.js"
 
 export const SIDEBAR_BREAKPOINT = 768
@@ -26,7 +26,7 @@ export const setSidebarCollapsed = (collapsed, persist = true) => {
         sidebarRailToggle.setAttribute("aria-label", collapsed ? "Mostrar menú" : "Ocultar menú")
         sidebarRailToggle.title = collapsed ? "Mostrar menú" : "Ocultar menú"
         const icon = sidebarRailToggle.querySelector("i")
-        if (icon) icon.className = collapsed ? "bx bx-chevron-right" : "bx bx-chevron-left"
+        if (icon) icon.className = collapsed ? "bx bx-chevrons-right" : "bx bx-chevrons-left"
     }
 
     if (persist) {
@@ -44,77 +44,89 @@ export const toggleSidebarCollapse = () => {
 }
 
 export const closeSidebar = () => {
-    const appSidebar = document.getElementById("appSidebar")
-    const sidebarBackdrop = document.getElementById("sidebarBackdrop")
-    if (!appSidebar) return
-    appSidebar.classList.remove("is-open")
-    if (sidebarBackdrop) {
-        sidebarBackdrop.classList.remove("is-visible")
-        sidebarBackdrop.classList.add("hidden")
-        sidebarBackdrop.setAttribute("aria-hidden", "true")
-    }
     document.body.classList.remove("sidebar-open")
 }
 
-export const openSidebar = () => {
-    const appSidebar = document.getElementById("appSidebar")
-    const sidebarBackdrop = document.getElementById("sidebarBackdrop")
-    if (!appSidebar || !isMobileSidebar()) return
-    closeProfileDrawer()
-    appSidebar.classList.add("is-open")
-    if (sidebarBackdrop) {
-        sidebarBackdrop.classList.remove("hidden")
-        sidebarBackdrop.classList.add("is-visible")
-        sidebarBackdrop.setAttribute("aria-hidden", "false")
-    }
-    document.body.classList.add("sidebar-open")
+export const syncNavActive = (viewName) => {
+    document.querySelectorAll("#sidebarNav .nav-link, .mobile-nav-item").forEach((el) => {
+        const active = el.dataset.view === viewName
+        el.classList.toggle("active", active)
+        if (el.classList.contains("mobile-nav-item")) {
+            el.setAttribute("aria-current", active ? "page" : "false")
+        }
+    })
 }
 
-export const toggleSidebar = () => {
-    const appSidebar = document.getElementById("appSidebar")
-    if (appSidebar?.classList.contains("is-open")) closeSidebar()
-    else openSidebar()
+export const updateMobileChrome = () => {
+    const dashboardSection = document.getElementById("dashboardSection")
+    const mobileBottomNav = document.getElementById("mobileBottomNav")
+    const profileHeaderBtn = document.getElementById("profileHeaderBtn")
+    const inDashboard = dashboardSection && !dashboardSection.classList.contains("hidden")
+    const mobile = isMobileSidebar()
+
+    document.body.classList.toggle("app-dashboard", inDashboard)
+    document.body.classList.toggle("has-mobile-nav", inDashboard && mobile)
+
+    if (mobileBottomNav) {
+        mobileBottomNav.classList.toggle("hidden", !inDashboard || !mobile)
+        mobileBottomNav.classList.toggle("is-visible", inDashboard && mobile)
+    }
+
+    if (profileHeaderBtn) {
+        const showProfile = inDashboard && mobile
+        profileHeaderBtn.classList.toggle("hidden", !showProfile)
+        if (!showProfile) profileHeaderBtn.setAttribute("aria-expanded", "false")
+    }
 }
 
 export const updateSidebarToggle = () => {
-    const sidebarToggle = document.getElementById("sidebarToggle")
     const dashboardSection = document.getElementById("dashboardSection")
     const sidebarRailToggle = document.getElementById("sidebarRailToggle")
-  const dashboardShell = document.querySelector(".dashboard-shell")
-    if (!sidebarToggle) return
+    const dashboardShell = document.querySelector(".dashboard-shell")
 
-    if (dashboardSection.classList.contains("hidden")) {
-        sidebarToggle.classList.add("hidden")
+    if (dashboardSection?.classList.contains("hidden")) {
         closeSidebar()
         sidebarRailToggle?.classList.add("hidden")
+        closeProfileDrawer()
+        updateMobileChrome()
         return
     }
 
-    sidebarToggle.classList.toggle("hidden", !isMobileSidebar())
     if (!isMobileSidebar()) {
-        closeSidebar()
         setSidebarCollapsed(sessionStorage.getItem(SIDEBAR_COLLAPSED_KEY) === "1", false)
     } else {
         dashboardShell?.classList.remove("sidebar-collapsed")
         sidebarRailToggle?.classList.add("hidden")
+        closeSidebar()
     }
+    updateMobileChrome()
+}
+
+const handleNavClick = (event) => {
+    const link = event.target.closest("[data-view]")
+    if (!link || link.classList.contains("disabled")) return
+    showView(link.dataset.view)
 }
 
 export const initSidebar = () => {
-    document.getElementById("sidebarToggle")?.addEventListener("click", toggleSidebar)
-    document.getElementById("sidebarBackdrop")?.addEventListener("click", closeSidebar)
+    document.getElementById("profileHeaderBtn")?.addEventListener("click", (event) => {
+        event.preventDefault()
+        toggleProfileDrawer()
+        const expanded = document.getElementById("profileDrawer")?.classList.contains("is-open")
+        document.getElementById("profileHeaderBtn")?.setAttribute("aria-expanded", String(!!expanded))
+    })
+
     document.getElementById("sidebarRailToggle")?.addEventListener("click", toggleSidebarCollapse)
     window.addEventListener("resize", updateSidebarToggle)
 
-    document.getElementById("sidebarNav")?.addEventListener("click", (event) => {
-        const link = event.target.closest("[data-view]")
-        if (!link || link.classList.contains("disabled")) return
-        showView(link.dataset.view)
-    })
+    document.getElementById("sidebarNav")?.addEventListener("click", handleNavClick)
+    document.getElementById("mobileBottomNav")?.addEventListener("click", handleNavClick)
 
     document.addEventListener("keydown", (event) => {
-        if (event.key === "Escape" && document.getElementById("appSidebar")?.classList.contains("is-open")) {
-            closeSidebar()
+        if (event.key !== "Escape") return
+        if (document.getElementById("profileDrawer")?.classList.contains("is-open")) {
+            closeProfileDrawer()
+            document.getElementById("profileHeaderBtn")?.setAttribute("aria-expanded", "false")
         }
     })
 }

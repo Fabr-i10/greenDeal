@@ -12,22 +12,45 @@
         <link rel="apple-touch-icon" href="img/icon_x192.png">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
         <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+        <style>
+            body.app-is-loading { overflow: hidden; }
+            #appSplash {
+                position: fixed;
+                inset: 0;
+                z-index: 9999;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background: #122820;
+            }
+        </style>
         <link rel="stylesheet" href="shared/css/variables.css">
+        <link rel="stylesheet" href="shared/css/splash.css">
         <link rel="stylesheet" href="shared/css/base.css">
         <link rel="stylesheet" href="shared/css/layout.css">
+        <link rel="stylesheet" href="shared/css/mobile-tables.css">
         <link rel="stylesheet" href="shared/css/components.css">
+        <link rel="stylesheet" href="shared/css/entity-forms.css">
         <link rel="stylesheet" href="features/auth/auth.css">
         <link rel="stylesheet" href="features/dashboard/dashboard.css">
         <link rel="stylesheet" href="features/reports/reports.css">
         <link rel="manifest" href="manifest.json">
         <link rel="icon" href="img/icon_x48.png" type="image/png">
     </head>
-    <body>
+    <body class="app-is-loading">
+        <div id="appSplash" class="app-splash" role="status" aria-live="polite" aria-busy="true" aria-label="Cargando GreenDeal">
+            <div class="app-splash-inner">
+                <h1 class="app-splash-title">GreenDeal</h1>
+                <p class="app-splash-status">Cargando…</p>
+                <div class="app-splash-bar" aria-hidden="true"><span></span></div>
+            </div>
+        </div>
+
         <header class="app-header bg-primary-greendeal text-white">
             <div class="app-header-inner">
                 <div class="app-header-brand">
-                    <button type="button" id="sidebarToggle" class="btn btn-outline-light btn-sm sidebar-toggle hidden" aria-label="Abrir menú">
-                        <i class="bx bx-menu fs-5"></i>
+                    <button type="button" id="profileHeaderBtn" class="profile-header-btn hidden" aria-label="Mi perfil" aria-expanded="false" aria-controls="profileDrawer">
+                        <i class="bx bx-user" aria-hidden="true"></i>
                     </button>
                     <img src="img/icon_x96.png" alt="GreenDeal" class="centered-image">
                     <h4 class="mb-0 app-title">GreenDeal</h4>
@@ -40,7 +63,7 @@
         </header>
 
         <main class="flex-grow-1">
-            <section id="authSection" class="container py-4"></section>
+            <section id="authSection" class="container py-4 hidden"></section>
 
             <section id="dashboardSection" class="container-fluid dashboard-layout hidden">
                 <div id="sidebarBackdrop" class="sidebar-backdrop hidden" aria-hidden="true"></div>
@@ -57,7 +80,30 @@
 
         <div id="forms-root"></div>
 
-        <footer class="bg-primary-greendeal text-white py-3 mt-auto">
+        <nav id="mobileBottomNav" class="mobile-bottom-nav hidden" aria-label="Navegación principal">
+            <button type="button" class="mobile-nav-item active" data-view="dashboard" aria-label="Dashboard">
+                <i class="bx bx-home-alt"></i>
+                <span>Inicio</span>
+            </button>
+            <button type="button" class="mobile-nav-item" data-view="providers" aria-label="Proveedores">
+                <i class="bx bx-buildings"></i>
+                <span>Prov.</span>
+            </button>
+            <button type="button" class="mobile-nav-item" data-view="tours" aria-label="Tours">
+                <i class="bx bx-map"></i>
+                <span>Tours</span>
+            </button>
+            <button type="button" class="mobile-nav-item" data-view="sales" aria-label="Ventas">
+                <i class="bx bx-cart"></i>
+                <span>Ventas</span>
+            </button>
+            <button type="button" class="mobile-nav-item" data-view="reports" aria-label="Reportes">
+                <i class="bx bx-bar-chart"></i>
+                <span>Reportes</span>
+            </button>
+        </nav>
+
+        <footer class="app-footer bg-primary-greendeal text-white py-3 mt-auto">
             <div class="container text-center">
                 <p class="mb-0">&copy; GreenDeal 2026</p>
             </div>

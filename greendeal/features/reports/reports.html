@@ -1,18 +1,18 @@
 <div id="reportsView" class="view-panel hidden">
                             <div class="view-header reports-view-header mb-3">
-                                <div>
+                                <div class="reports-intro">
                                     <h4 class="mb-1">Reportes mensuales</h4>
                                     <p class="text-muted mb-0">Consulta totales por mes o por rango de fechas</p>
                                 </div>
                                 <div id="reportFilterForm" class="report-filter-form">
-                                    <div class="report-toolbar">
+                                    <div class="report-filter-card">
                                         <div class="report-mode-toggle btn-group btn-group-sm" role="group" aria-label="Tipo de reporte">
                                             <input type="radio" class="btn-check" name="reportMode" id="reportModeMonth" value="month" checked>
                                             <label class="btn btn-outline-success" for="reportModeMonth">Por mes</label>
                                             <input type="radio" class="btn-check" name="reportMode" id="reportModeRange" value="range">
                                             <label class="btn btn-outline-success" for="reportModeRange">Por rango</label>
                                         </div>
-                                        <div id="reportMonthFilters" class="report-filter-fields">
+                                        <div id="reportMonthFilters" class="report-filter-panel">
                                             <div class="report-filter-field">
                                                 <label class="form-label" for="reportYear">Año</label>
                                                 <input type="number" class="form-control form-control-sm" id="reportYear" min="2020" max="2100">
@@ -35,7 +35,7 @@
                                                 </select>
                                             </div>
                                         </div>
-                                        <div id="reportRangeFilters" class="report-filter-fields hidden">
+                                        <div id="reportRangeFilters" class="report-filter-panel report-filter-panel--range hidden">
                                             <div class="report-filter-field">
                                                 <label class="form-label" for="reportStartDate">Desde</label>
                                                 <input type="date" class="form-control form-control-sm" id="reportStartDate">
@@ -90,8 +90,8 @@
                                         <h5 class="mb-0">Tours más vendidos</h5>
                                         <span class="text-muted" id="reportPeriodLabel">-</span>
                                     </div>
-                                    <div class="table-responsive">
-                                        <table class="table table-hover align-middle mb-0">
+                                    <div class="table-responsive table-mobile-cards-wrap">
+                                        <table class="table table-hover table-mobile-cards align-middle mb-0">
                                             <thead>
                                                 <tr>
                                                     <th class="text-end">#</th>

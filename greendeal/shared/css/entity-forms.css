@@ -1,0 +1,273 @@
+/* Formularios de alta/edición (modales) — paleta GreenDeal */
+.gd-entity-modal {
+  border: 1px solid var(--gd-glass-border);
+  border-radius: 1rem;
+  background: linear-gradient(
+    165deg,
+    rgba(22, 48, 40, 0.98) 0%,
+    rgba(26, 56, 48, 0.96) 45%,
+    rgba(18, 40, 32, 0.98) 100%
+  );
+  box-shadow:
+    0 20px 48px rgba(0, 0, 0, 0.45),
+    inset 0 1px 0 var(--gd-glass-highlight);
+  color: var(--gd-dashboard-text);
+  overflow: hidden;
+}
+
+.gd-entity-modal .modal-header {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  padding: 1rem 1.125rem;
+  border-bottom: 1px solid rgba(196, 217, 176, 0.18);
+  background: rgba(22, 48, 40, 0.97);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.gd-entity-modal .modal-title {
+  font-size: 1.125rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--gd-accent-gold);
+}
+
+.gd-entity-modal .btn-close {
+  flex-shrink: 0;
+  width: 2.5rem;
+  height: 2.5rem;
+  margin: 0;
+  padding: 0;
+  border-radius: 0.5rem;
+  background: rgba(255, 255, 255, 0.1) url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23eef6f0'%3e%3cpath d='M.293.293a1 1 0 0 1 1.414 0L8 6.586 14.293.293a1 1 0 1 1 1.414 1.414L9.414 8l6.293 6.293a1 1 0 0 1-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 0 1-1.414-1.414L6.586 8 .293 1.707a1 1 0 0 1 0-1.414z'/%3e%3c/svg%3e") center / 1rem no-repeat;
+  filter: none;
+  opacity: 1;
+}
+
+.gd-entity-modal .btn-close:hover {
+  background-color: rgba(200, 237, 212, 0.22);
+  opacity: 1;
+}
+
+.gd-entity-modal .modal-body {
+  padding: 1.125rem 1.125rem 0.5rem;
+  background: var(--gd-dashboard-bg);
+  isolation: isolate;
+}
+
+.gd-entity-modal .modal-footer,
+.gd-entity-modal-footer {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  padding: 0.875rem 1.125rem calc(0.875rem + env(safe-area-inset-bottom, 0px));
+  border-top: 1px solid rgba(196, 217, 176, 0.18);
+  background: rgba(0, 0, 0, 0.15);
+}
+
+.gd-entity-modal-footer .btn-secondary {
+  flex: 0 1 auto;
+  min-width: 0;
+  white-space: nowrap;
+}
+
+.gd-form-submit-btn {
+  flex: 0 0 auto;
+  width: auto;
+  min-width: 6.5rem;
+  max-width: 9rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  white-space: nowrap;
+}
+
+.gd-form-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.875rem;
+}
+
+@media (min-width: 576px) {
+  .gd-form-grid--2 {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.875rem 1rem;
+  }
+}
+
+.gd-form-field--span-2 {
+  grid-column: 1 / -1;
+}
+
+.gd-form-field .form-label {
+  margin-bottom: 0.35rem;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--gd-dashboard-muted);
+}
+
+.gd-entity-modal .form-control,
+.gd-entity-modal .form-select,
+#dashboardSection .form-select {
+  min-height: 2.75rem;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid rgba(196, 217, 176, 0.28);
+  border-radius: 0.625rem;
+  background-color: rgba(32, 62, 52, 0.98);
+  color: var(--gd-dashboard-text);
+}
+
+.gd-entity-modal .form-control::placeholder {
+  color: rgba(232, 245, 236, 0.35);
+}
+
+.gd-entity-modal .form-control:focus {
+  border-color: rgba(200, 237, 212, 0.55);
+  background-color: rgba(38, 72, 58, 0.98);
+  color: var(--gd-dashboard-text);
+  box-shadow: 0 0 0 0.2rem rgba(46, 125, 82, 0.25);
+}
+
+/* Select: una sola flecha, sin repetir (Bootstrap añade otra por defecto) */
+.gd-entity-modal .form-select,
+#dashboardSection .form-select {
+  --bs-form-select-bg-img: none;
+  accent-color: var(--gd-secondary);
+  color-scheme: dark;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  padding-right: 2.5rem;
+  cursor: pointer;
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23d4c48a' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+  background-size: 0.875rem 0.5rem;
+}
+
+.gd-entity-modal .form-select:focus,
+.gd-entity-modal .form-select:active,
+#dashboardSection .form-select:focus {
+  border-color: rgba(200, 237, 212, 0.55);
+  background-color: rgba(38, 72, 58, 0.98);
+  color: var(--gd-dashboard-text);
+  box-shadow: 0 0 0 0.2rem rgba(46, 125, 82, 0.25);
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23d4c48a' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+  background-size: 0.875rem 0.5rem;
+}
+
+.gd-entity-modal .form-select option,
+#dashboardSection .form-select option {
+  background-color: var(--gd-primary-dark);
+  color: var(--gd-dashboard-text);
+}
+
+.gd-entity-modal .form-select option:hover,
+.gd-entity-modal .form-select option:focus,
+.gd-entity-modal .form-select option:checked,
+#dashboardSection .form-select option:hover,
+#dashboardSection .form-select option:focus,
+#dashboardSection .form-select option:checked {
+  background: linear-gradient(0deg, var(--gd-secondary) 0%, var(--gd-secondary-light) 100%);
+  color: var(--gd-dashboard-text);
+}
+
+#dashboardSection .form-select.form-select-sm {
+  min-height: 2.25rem;
+  padding: 0.35rem 2rem 0.35rem 0.65rem;
+  font-size: 0.875rem;
+  background-position: right 0.5rem center;
+  background-size: 0.75rem 0.45rem;
+}
+
+.gd-form-preview {
+  margin-top: 0.25rem;
+  padding: 1rem;
+  border: 1px solid rgba(196, 217, 176, 0.2);
+  border-radius: 0.75rem;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.gd-form-preview-title {
+  margin: 0 0 0.75rem;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--gd-accent-gold);
+}
+
+.gd-form-preview-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.75rem 0.5rem;
+}
+
+.gd-form-preview-item small {
+  display: block;
+  margin-bottom: 0.15rem;
+  font-size: 0.625rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--gd-dashboard-muted);
+}
+
+.gd-form-preview-item strong {
+  font-size: 0.9375rem;
+  color: var(--gd-dashboard-text);
+  font-variant-numeric: tabular-nums;
+}
+
+.gd-form-preview-note {
+  margin: 0.75rem 0 0;
+  font-size: 0.75rem;
+  line-height: 1.4;
+  color: var(--gd-dashboard-muted);
+}
+
+.gd-entity-modal .btn-secondary {
+  --bs-btn-bg: rgba(255, 255, 255, 0.08);
+  --bs-btn-border-color: rgba(196, 217, 176, 0.35);
+  --bs-btn-color: var(--gd-dashboard-text);
+  --bs-btn-hover-bg: rgba(255, 255, 255, 0.14);
+  --bs-btn-hover-border-color: rgba(200, 237, 212, 0.5);
+  --bs-btn-hover-color: var(--gd-dashboard-text);
+}
+
+.gd-entity-modal .btn-success {
+  background: linear-gradient(160deg, var(--gd-success) 0%, var(--gd-secondary) 100%);
+  border: 1px solid rgba(196, 217, 176, 0.35);
+  font-weight: 600;
+}
+
+.gd-entity-modal .btn-success:hover {
+  background: linear-gradient(160deg, #3d9f6c 0%, var(--gd-secondary-light) 100%);
+  border-color: rgba(217, 240, 168, 0.5);
+}
+
+@media (max-width: 575.98px) {
+  .gd-entity-modal {
+    border-radius: 0;
+    min-height: 100dvh;
+  }
+
+  .gd-entity-modal .modal-header {
+    padding-top: calc(0.75rem + env(safe-area-inset-top, 0px));
+  }
+
+  .gd-entity-modal-footer .btn-secondary,
+  .gd-form-submit-btn {
+    min-height: 2.75rem;
+  }
+
+  .gd-form-preview-grid {
+    grid-template-columns: 1fr;
+  }
+}

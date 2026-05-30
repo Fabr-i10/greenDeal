@@ -7,6 +7,7 @@ import {
 import { getFriendlyMessage } from "../../js/errors.js"
 import { formatCurrency } from "../../js/tourservice.js"
 import { showAppAlert, hideAppAlert } from "../../shared/js/alerts.js"
+import { dataTd, tableEmptyRow } from "../../shared/js/utils.js"
 
 const getReportMode = () =>
     document.getElementById("reportModeRange").checked ? "range" : "month"
@@ -33,16 +34,18 @@ const getReportPeriodLabel = (report) => {
 const renderTopToursTable = (topTours) => {
     const body = document.getElementById("topToursTableBody")
     if (!topTours.length) {
-        body.innerHTML = `<tr><td colspan="5" class="text-center text-muted py-4">No hay ventas para el periodo.</td></tr>`
+        body.innerHTML = tableEmptyRow(5, "No hay ventas para el periodo.")
         return
     }
     body.innerHTML = topTours
         .map(
             (t, i) => `
-            <tr>
-                <td class="text-end">${i + 1}</td><td>${t.tourName}</td>
-                <td class="text-end">${t.salesCount}</td><td class="text-end">${t.totalPeople}</td>
-                <td class="text-end">${formatCurrency(t.totalAmount)}</td>
+            <tr class="mobile-data-card">
+                <td class="text-end d-none d-md-table-cell">${i + 1}</td>
+                ${dataTd("Tour", `<span class="mobile-rank">${i + 1}</span>${t.tourName}`, "mobile-card-title")}
+                ${dataTd("Ventas", t.salesCount, "text-end")}
+                ${dataTd("Personas", t.totalPeople, "text-end")}
+                ${dataTd("Monto total", formatCurrency(t.totalAmount), "text-end")}
             </tr>`
         )
         .join("")
@@ -50,7 +53,7 @@ const renderTopToursTable = (topTours) => {
 
 export const loadReport = async () => {
     const body = document.getElementById("topToursTableBody")
-    body.innerHTML = `<tr><td colspan="5" class="text-center text-muted py-4">Generando reporte...</td></tr>`
+    body.innerHTML = tableEmptyRow(5, "Generando reporte...")
     try {
         let report
         if (getReportMode() === "range") {
@@ -73,7 +76,7 @@ export const loadReport = async () => {
         renderTopToursTable(report.topTours)
     } catch (err) {
         const message = getFriendlyMessage(err, "No se pudo generar el reporte")
-        body.innerHTML = `<tr><td colspan="5" class="text-center text-danger py-4">${message}</td></tr>`
+        body.innerHTML = tableEmptyRow(5, message, "danger")
         showAppAlert(message, "danger")
     }
 }

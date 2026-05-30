@@ -87,21 +87,36 @@ const restoreSession = async () => {
     }
 }
 
+const hideAppSplash = () => {
+    const splash = document.getElementById("appSplash")
+    document.body.classList.remove("app-is-loading")
+    if (!splash) return
+    splash.setAttribute("aria-busy", "false")
+    splash.classList.add("is-leaving")
+    const remove = () => splash.remove()
+    splash.addEventListener("transitionend", remove, { once: true })
+    setTimeout(remove, 450)
+}
+
 const initApp = async () => {
-    await waitForServiceWorker()
-    await loadPartials()
+    try {
+        await waitForServiceWorker()
+        await loadPartials()
 
-    initConfirm()
-    initSidebar()
-    initProfile()
-    initAuth()
-    initProviders()
-    initTours()
-    initSales()
-    initReports()
+        initConfirm()
+        initSidebar()
+        initProfile()
+        initAuth()
+        initProviders()
+        initTours()
+        initSales()
+        initReports()
 
-    await restoreSession()
-    showInstallHint()
+        await restoreSession()
+        showInstallHint()
+    } finally {
+        hideAppSplash()
+    }
 }
 
 initApp()

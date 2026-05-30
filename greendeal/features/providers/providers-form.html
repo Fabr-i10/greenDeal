@@ -1,6 +1,6 @@
 <div class="modal fade" id="providerFormPanel" tabindex="-1" aria-hidden="true">
             <div class="modal-dialog modal-fullscreen-sm-down modal-dialog-scrollable modal-dialog-centered">
-                <div class="modal-content">
+                <div class="modal-content gd-entity-modal">
                     <div class="modal-header">
                         <h5 class="modal-title" id="providerFormTitle">Nuevo proveedor</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
@@ -8,30 +8,32 @@
                     <form id="providerForm" class="panel-form">
                         <div class="modal-body">
                             <input type="hidden" id="providerId">
-                            <div class="mb-3">
-                                <label class="form-label">Nombre de la empresa</label>
-                                <input type="text" class="form-control" id="providerCompanyName" required>
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label">Cédula jurídica</label>
-                                <input type="text" class="form-control" id="providerLegalId" required>
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label">Teléfono</label>
-                                <input type="tel" class="form-control" id="providerPhone" required>
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label">Correo electrónico</label>
-                                <input type="email" class="form-control" id="providerEmail" required>
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label">Dirección</label>
-                                <textarea class="form-control" id="providerAddress" rows="2" required></textarea>
+                            <div class="gd-form-grid gd-form-grid--2">
+                                <div class="gd-form-field gd-form-field--span-2">
+                                    <label class="form-label" for="providerCompanyName">Nombre de la empresa</label>
+                                    <input type="text" class="form-control" id="providerCompanyName" required autocomplete="organization">
+                                </div>
+                                <div class="gd-form-field">
+                                    <label class="form-label" for="providerLegalId">Cédula jurídica</label>
+                                    <input type="text" class="form-control" id="providerLegalId" required>
+                                </div>
+                                <div class="gd-form-field">
+                                    <label class="form-label" for="providerPhone">Teléfono</label>
+                                    <input type="tel" class="form-control" id="providerPhone" required autocomplete="tel">
+                                </div>
+                                <div class="gd-form-field gd-form-field--span-2">
+                                    <label class="form-label" for="providerEmail">Correo electrónico</label>
+                                    <input type="email" class="form-control" id="providerEmail" required autocomplete="email">
+                                </div>
+                                <div class="gd-form-field gd-form-field--span-2">
+                                    <label class="form-label" for="providerAddress">Dirección</label>
+                                    <textarea class="form-control" id="providerAddress" rows="2" required></textarea>
+                                </div>
                             </div>
                         </div>
-                        <div class="modal-footer">
+                        <div class="modal-footer gd-entity-modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                            <button type="submit" class="btn btn-success">Guardar</button>
+                            <button type="submit" class="btn btn-success gd-form-submit-btn">Guardar</button>
                         </div>
                     </form>
                 </div>

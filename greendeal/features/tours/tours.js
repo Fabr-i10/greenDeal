@@ -3,6 +3,7 @@ import { getFriendlyMessage } from "../../js/errors.js"
 import { showAppAlert } from "../../shared/js/alerts.js"
 import { showConfirmDialog } from "../../shared/js/confirm.js"
 import { refreshDashboardCounts } from "../../shared/js/session.js"
+import { dataTd, tableEmptyRow } from "../../shared/js/utils.js"
 import { loadProviderOptions } from "../providers/providers.js"
 
 let currentTours = []
@@ -12,18 +13,25 @@ let tourFormPanel = null
 const renderToursTable = (tours) => {
     const body = document.getElementById("toursTableBody")
     if (!tours.length) {
-        body.innerHTML = `<tr><td colspan="6" class="text-center text-muted py-4">No hay tours registrados.</td></tr>`
+        body.innerHTML = tableEmptyRow(6, "No hay tours registrados.")
         return
     }
     body.innerHTML = tours
         .map(
             (t) => `
-            <tr>
-                <td>${t.tourName}</td><td>${t.provider.companyName}</td><td>${t.location}</td>
-                <td class="text-end">${formatCurrency(t.pricePerPerson)}</td><td>${t.description}</td>
-                <td class="text-end table-actions">
-                    <button type="button" class="btn btn-sm btn-outline-success me-1" data-tour-action="edit" data-id="${t.id}"><i class="bx bx-edit"></i></button>
-                    <button type="button" class="btn btn-sm btn-outline-danger" data-tour-action="delete" data-id="${t.id}"><i class="bx bx-trash"></i></button>
+            <tr class="mobile-data-card">
+                ${dataTd("Tour", t.tourName, "mobile-card-title")}
+                ${dataTd("Proveedor", t.provider.companyName)}
+                ${dataTd("Ubicación", t.location)}
+                ${dataTd("Precio/persona", formatCurrency(t.pricePerPerson), "text-end")}
+                ${dataTd("Descripción", t.description)}
+                <td data-label="Acciones" class="text-end table-actions table-actions-cell">
+                    <button type="button" class="btn btn-sm btn-outline-success me-1" data-tour-action="edit" data-id="${t.id}">
+                        <i class="bx bx-edit"></i><span class="btn-label-mobile">Editar</span>
+                    </button>
+                    <button type="button" class="btn btn-sm btn-outline-danger" data-tour-action="delete" data-id="${t.id}">
+                        <i class="bx bx-trash"></i><span class="btn-label-mobile">Eliminar</span>
+                    </button>
                 </td>
             </tr>`
         )
@@ -32,13 +40,13 @@ const renderToursTable = (tours) => {
 
 export const loadTours = async () => {
     const body = document.getElementById("toursTableBody")
-    body.innerHTML = `<tr><td colspan="6" class="text-center text-muted py-4">Cargando tours...</td></tr>`
+    body.innerHTML = tableEmptyRow(6, "Cargando tours...")
     try {
         currentTours = await getTours()
         renderToursTable(currentTours)
         document.getElementById("tourCount").textContent = currentTours.length
     } catch (err) {
-        body.innerHTML = `<tr><td colspan="6" class="text-center text-danger py-4">${getFriendlyMessage(err, "Error al cargar tours")}</td></tr>`
+        body.innerHTML = tableEmptyRow(6, getFriendlyMessage(err, "Error al cargar tours"), "danger")
     }
 }
 

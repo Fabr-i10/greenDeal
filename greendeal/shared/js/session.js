@@ -9,6 +9,7 @@ import { getUserInitials, formatProfileDate } from "./utils.js"
 import { updateSidebarToggle, initSidebarCollapse } from "./sidebar.js"
 import { closeProfileDrawer } from "./profile.js"
 import { closeSidebar } from "./sidebar.js"
+import { dismissOpenModals } from "./modals.js"
 import { showView } from "./router.js"
 
 let wsConnection = null
@@ -115,11 +116,12 @@ export const showDashboard = (user) => {
 }
 
 export const showAuth = () => {
+    dismissOpenModals()
     closeProfileDrawer()
     closeSidebar()
     document.getElementById("authSection").classList.remove("hidden")
     document.getElementById("dashboardSection").classList.add("hidden")
     document.getElementById("btnLogout").classList.add("hidden")
-    document.getElementById("sidebarToggle")?.classList.add("hidden")
+    updateSidebarToggle()
     hideAlert()
 }
