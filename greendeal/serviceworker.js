@@ -5,10 +5,10 @@
  * 3- Activo -> fetch/sync/push
  */
 
-const CACHE_STATIC_NAME = "greendeal-static-v17"
-const CACHE_DYNAMIC_NAME = "greendeal-dynamic-v17"
-const CACHE_GRAPHQL_NAME = "greendeal-graphql-v17"
-const CACHE_IMMUTABLE_NAME = "greendeal-immutable-v17"
+const CACHE_STATIC_NAME = "greendeal-static-v18"
+const CACHE_DYNAMIC_NAME = "greendeal-dynamic-v18"
+const CACHE_GRAPHQL_NAME = "greendeal-graphql-v18"
+const CACHE_IMMUTABLE_NAME = "greendeal-immutable-v18"
 const MAX_CACHE_ITEMS = 50
 const GRAPHQL_URL = "https://greendeal-0ash.onrender.com/graphql"
 const BASE = new URL("./", self.location.href)
@@ -72,10 +72,17 @@ const STATIC_PATHS = [
     "js/salesservice.js",
     "js/reportservice.js",
     "manifest.json",
-    "img/icon_x192.png",
-    "img/icon_x96.png",
     "img/icon_x48.png",
     "img/icon_x72.png",
+    "img/icon_x96.png",
+    "img/icon_x128.png",
+    "img/icon_x192.png",
+    "img/icon_x192-maskable.png",
+    "img/icon_x384.png",
+    "img/icon_x512.png",
+    "img/icon_x512-maskable.png",
+    "img/screenshots/mobile.png",
+    "img/screenshots/wide.png",
 ]
 
 const STATIC_ASSETS = [BASE.href, assetUrl("index.html"), ...STATIC_PATHS.map(assetUrl)]
