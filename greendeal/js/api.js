@@ -1,8 +1,8 @@
 import { getFriendlyMessage } from "./errors.js"
 
-export const urlAPI = "http://localhost:9002/graphql"
-export const urlLogin = "http://localhost:9002/login"
-export const urlWS = "ws://localhost:9002/graphql"
+export const urlAPI = "https://greendeal-0ash.onrender.com/graphql"
+export const urlLogin = "https://greendeal-0ash.onrender.com/login"
+export const urlWS = "wss://greendeal-0ash.onrender.com/graphql"
 
 let offlineBannerShown = false
 

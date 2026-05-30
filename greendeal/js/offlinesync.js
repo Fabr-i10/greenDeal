@@ -1,5 +1,5 @@
 /** Referencia del módulo offline. La lógica activa está inline en serviceworker.js */
-const urlAPI = "http://localhost:9002/graphql"
+const urlAPI = "https://greendeal-0ash.onrender.com/graphql"
 const CACHE_GRAPHQL_NAME = "greendeal-graphql-v6"
 
 function graphqlCacheKey(key) {

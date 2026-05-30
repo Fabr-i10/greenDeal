@@ -10,7 +10,7 @@ const CACHE_DYNAMIC_NAME = "greendeal-dynamic-v6"
 const CACHE_GRAPHQL_NAME = "greendeal-graphql-v6"
 const CACHE_IMMUTABLE_NAME = "greendeal-immutable-v6"
 const MAX_CACHE_ITEMS = 50
-const GRAPHQL_URL = "http://localhost:9002/graphql"
+const GRAPHQL_URL = "https://greendeal-0ash.onrender.com/graphql"
 const BASE = new URL("./", self.location.href)
 
 importScripts("https://cdnjs.cloudflare.com/ajax/libs/pouchdb/9.0.0/pouchdb.min.js")

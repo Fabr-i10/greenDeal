@@ -10,7 +10,7 @@ import { authMiddleware, getToken, verifyToken } from "./auth.js"
 import { useServer } from "graphql-ws/use/ws"
 import { WebSocketServer } from "ws"
 
-const PORT = 9002
+const PORT = process.env.PORT || 9002
 const app = express()
 
 app.use(cors(), express.json(), authMiddleware)
