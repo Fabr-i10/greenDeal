@@ -1,0 +1,3 @@
+# GreenDeal: sitio estático en greendeal/ (no hay build)
+[build]
+  publish = "greendeal"
