@@ -17,30 +17,6 @@ if ("serviceWorker" in navigator) {
     })
 }
 
-const isAppInstalled = () =>
-    window.matchMedia("(display-mode: standalone)").matches || window.navigator.standalone === true
-
-const showInstallHint = () => {
-    if (isAppInstalled() || sessionStorage.getItem("install_hint_dismissed")) return
-    const mobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent)
-    if (!mobile) return
-
-    const inAppBrowser = /FBAN|FBAV|Instagram|Line\/|MicroMessenger|WhatsApp/i.test(navigator.userAgent)
-    const ios = /iPhone|iPad|iPod/i.test(navigator.userAgent)
-
-    let message
-    if (inAppBrowser) {
-        message =
-            "Abre esta página en Chrome o Safari (menú ⋮ → «Abrir en navegador») para poder instalar GreenDeal."
-    } else if (ios) {
-        message = "Para instalar: en Safari toca Compartir y elige «Añadir a pantalla de inicio»."
-    } else {
-        message = "Para instalar: menú ⋮ de Chrome → «Instalar aplicación» o «Añadir a pantalla de inicio»."
-    }
-
-    import("./alerts.js").then(({ showAppAlert }) => showAppAlert(message, "info"))
-}
-
 window.addEventListener("online", () => {
     resetOfflineBanner()
     reconnectRealtime()
@@ -113,7 +89,6 @@ const initApp = async () => {
         initReports()
 
         await restoreSession()
-        showInstallHint()
     } finally {
         hideAppSplash()
     }

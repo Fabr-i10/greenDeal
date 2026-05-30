@@ -103,6 +103,7 @@ export const refreshDashboardCounts = async () => {
 }
 
 export const showDashboard = (user) => {
+    document.body.classList.remove("auth-page")
     document.getElementById("authSection").classList.add("hidden")
     document.getElementById("dashboardSection").classList.remove("hidden")
     document.getElementById("btnLogout").classList.remove("hidden")
@@ -119,6 +120,7 @@ export const showAuth = () => {
     dismissOpenModals()
     closeProfileDrawer()
     closeSidebar()
+    document.body.classList.add("auth-page")
     document.getElementById("authSection").classList.remove("hidden")
     document.getElementById("dashboardSection").classList.add("hidden")
     document.getElementById("btnLogout").classList.add("hidden")

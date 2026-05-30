@@ -1,6 +1,7 @@
 import { loginUser, registerUser } from "../../js/authservice.js"
 import { getFriendlyMessage } from "../../js/errors.js"
 import { hideAlert, showAlert } from "../../shared/js/alerts.js"
+import { showConfirmDialog } from "../../shared/js/confirm.js"
 import { saveSession, showDashboard, showAuth, clearSession } from "../../shared/js/session.js"
 
 export const initAuth = () => {
@@ -55,7 +56,18 @@ export const initAuth = () => {
         }
     })
 
-    document.getElementById("btnLogout")?.addEventListener("click", () => {
+    document.getElementById("btnLogout")?.addEventListener("click", async () => {
+        const ok = await showConfirmDialog({
+            title: "Cerrar sesión",
+            message: "¿Estás seguro de que quieres cerrar sesión?",
+            confirmText: "Cerrar sesión",
+            cancelText: "Cancelar",
+            confirmClass: "btn-success",
+            iconClass: "bx-log-out",
+            iconTone: "neutral",
+        })
+        if (!ok) return
+
         clearSession()
         showAuth()
         loginForm?.reset()

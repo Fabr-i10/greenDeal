@@ -8,6 +8,8 @@ export const showConfirmDialog = ({
     confirmText = "Confirmar",
     cancelText = "Cancelar",
     confirmClass = "btn-danger",
+    iconClass = "bx-trash",
+    iconTone = "danger",
 }) =>
     new Promise((resolve) => {
         document.getElementById("confirmFormTitle").textContent = title
@@ -16,6 +18,12 @@ export const showConfirmDialog = ({
         confirmBtn.textContent = confirmText
         confirmBtn.className = `btn btn-sm ${confirmClass}`
         document.getElementById("confirmFormCancel").textContent = cancelText
+
+        const iconWrap = document.querySelector("#confirmFormPanel .confirm-form-icon")
+        const iconEl = iconWrap?.querySelector("i")
+        if (iconEl) iconEl.className = `bx ${iconClass}`
+        iconWrap?.classList.remove("confirm-form-icon--danger", "confirm-form-icon--neutral")
+        iconWrap?.classList.add(`confirm-form-icon--${iconTone}`)
         confirmAccepted = false
         confirmResolver = resolve
         confirmFormPanel.show()

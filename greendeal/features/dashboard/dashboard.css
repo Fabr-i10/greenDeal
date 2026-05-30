@@ -1,11 +1,32 @@
 #dashboardSection .sidebar {
-  background: var(--gd-sidebar-cream);
-  border-right-color: rgba(197, 221, 208, 0.65);
+  background: linear-gradient(
+    180deg,
+    var(--gd-sidebar-dark) 0%,
+    var(--gd-sidebar-dark-deep) 100%
+  );
+  border-right: 1px solid var(--gd-sidebar-dark-border);
+  box-shadow: inset -1px 0 0 rgba(255, 255, 255, 0.04);
+}
+
+#dashboardSection .sidebar .nav-link {
+  color: rgba(232, 245, 236, 0.72);
+  font-weight: 500;
+}
+
+#dashboardSection .sidebar .nav-link:hover {
+  background-color: rgba(255, 255, 255, 0.07);
+  color: var(--gd-dashboard-text);
 }
 
 #dashboardSection .sidebar .nav-link.active {
-  background: linear-gradient(90deg, rgba(46, 125, 82, 0.28) 0%, rgba(46, 125, 82, 0.04) 100%);
-  color: var(--gd-primary);
+  background: linear-gradient(
+    90deg,
+    rgba(6, 95, 42, 0.55) 0%,
+    rgba(46, 125, 82, 0.15) 72%,
+    transparent 100%
+  );
+  color: var(--gd-accent-gold);
+  box-shadow: inset 3px 0 0 #3d9f6c;
 }
 
 #dashboardSection .dashboard-card {
@@ -79,38 +100,58 @@
 }
 
 #dashboardSection .profile-drawer .profile-card {
-  background: var(--gd-surface);
-  backdrop-filter: none;
-  -webkit-backdrop-filter: none;
-  border-color: var(--gd-border);
-  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.35);
-  color: var(--gd-text-primary);
+  background: var(--gd-profile-card-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--gd-sidebar-dark-border);
+  box-shadow:
+    0 16px 48px rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  color: var(--gd-dashboard-text);
 }
 
 #dashboardSection .profile-drawer .profile-card-header {
-  background: linear-gradient(135deg, var(--gd-bg-mint), var(--gd-bg-lime));
+  background: var(--gd-profile-header-gradient);
 }
 
 #dashboardSection .profile-drawer .profile-card .profile-name,
 #dashboardSection .profile-drawer .profile-card .profile-details li span:last-child {
-  color: var(--gd-text-primary);
+  color: var(--gd-dashboard-text);
 }
 
 #dashboardSection .profile-drawer .profile-card .text-muted,
+#dashboardSection .profile-drawer .profile-card .profile-subtitle,
 #dashboardSection .profile-drawer .profile-card .profile-label {
-  color: var(--gd-text-muted) !important;
+  color: var(--gd-dashboard-muted) !important;
 }
 
 #dashboardSection .profile-drawer .profile-card .profile-details li {
-  border-bottom-color: var(--gd-border);
+  border-bottom-color: rgba(196, 217, 176, 0.16);
 }
 
 #dashboardSection .profile-drawer .profile-card .profile-details li i {
-  color: var(--gd-secondary);
+  color: var(--gd-accent-gold);
 }
 
 #dashboardSection .profile-mini-card {
-  background-color: rgba(255, 255, 255, 0.72);
+  background-color: rgba(255, 255, 255, 0.06);
+  border-color: var(--gd-sidebar-dark-border);
+  color: var(--gd-dashboard-text);
+}
+
+#dashboardSection .profile-mini-card:hover,
+#dashboardSection .profile-mini-card.active {
+  background-color: rgba(46, 125, 82, 0.22);
+  border-color: rgba(196, 217, 176, 0.35);
+}
+
+#dashboardSection .profile-mini-name {
+  color: var(--gd-dashboard-text);
+}
+
+#dashboardSection .profile-mini-label,
+#dashboardSection .profile-mini-arrow {
+  color: var(--gd-dashboard-muted);
 }
 
 .profile-card {
@@ -121,7 +162,7 @@
   display: flex;
   justify-content: center;
   padding: 1.75rem 1rem 3rem;
-  background: linear-gradient(135deg, var(--gd-bg-mint), var(--gd-bg-lime));
+  background: var(--gd-profile-header-gradient);
 }
 
 .profile-avatar {
@@ -145,16 +186,19 @@
 }
 
 .profile-card .card-body > .profile-name,
+.profile-card .card-body > .profile-subtitle,
 .profile-card .card-body > .text-muted.small {
   text-align: center;
 }
 
+.profile-card .card-body > .profile-subtitle,
 .profile-card .card-body > .text-muted.small {
   margin-bottom: 1.25rem !important;
+  color: var(--gd-dashboard-muted);
 }
 
 .profile-name {
-  color: var(--gd-text-primary);
+  color: var(--gd-dashboard-text);
   font-weight: 600;
   margin-bottom: 0.15rem;
 }
@@ -168,7 +212,7 @@
   align-items: flex-start;
   gap: 0.75rem;
   padding: 0.75rem 0;
-  border-bottom: 1px solid var(--gd-border);
+  border-bottom: 1px solid rgba(196, 217, 176, 0.16);
 }
 
 .profile-details li:last-child {
@@ -180,7 +224,7 @@
   flex-shrink: 0;
   margin-top: 0.15rem;
   font-size: 1.25rem;
-  color: var(--gd-secondary);
+  color: var(--gd-accent-gold);
 }
 
 .profile-details li div {
@@ -192,14 +236,14 @@
 .profile-label {
   display: block;
   margin-bottom: 0.15rem;
-  color: var(--gd-text-muted);
+  color: var(--gd-dashboard-muted);
   font-size: 0.75rem;
   text-transform: uppercase;
   letter-spacing: 0.04em;
 }
 
 .profile-details li span:last-child {
-  color: var(--gd-text-primary);
+  color: var(--gd-dashboard-text);
   word-break: break-word;
 }
 
@@ -228,6 +272,21 @@
 }
 
 @media (max-width: 767.98px) {
+  #dashboardSection .profile-drawer-backdrop {
+    background-color: rgba(5, 10, 8, 0.72);
+  }
+
+  #dashboardSection .profile-drawer .profile-card .card-body {
+    padding: 2.75rem 1.125rem 1.25rem;
+  }
+
+  #dashboardSection .profile-drawer-close {
+    top: 0.65rem;
+    right: 0.65rem;
+    width: 2.25rem;
+    height: 2.25rem;
+  }
+
   body.app-dashboard .mobile-bottom-nav {
     background: rgba(18, 40, 32, 0.97);
     border-top-color: rgba(196, 217, 176, 0.18);
@@ -293,20 +352,24 @@
   min-width: 0;
   margin-top: auto;
   padding: 0.5rem 0.6rem;
-  border: 1px solid var(--gd-border);
+  border: 1px solid var(--gd-sidebar-dark-border);
   border-radius: 0.75rem;
-  background-color: var(--gd-surface);
-  color: var(--gd-text-primary);
+  background-color: rgba(255, 255, 255, 0.06);
+  color: var(--gd-dashboard-text);
   text-align: left;
   cursor: pointer;
   overflow: hidden;
-  transition: background-color 0.15s ease, border-color 0.15s ease;
+  transition:
+    background-color 0.15s ease,
+    border-color 0.15s ease,
+    box-shadow 0.15s ease;
 }
 
 .profile-mini-card:hover,
 .profile-mini-card.active {
-  background-color: var(--gd-surface-muted);
-  border-color: var(--gd-secondary-light);
+  background-color: rgba(46, 125, 82, 0.22);
+  border-color: rgba(196, 217, 176, 0.35);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.06);
 }
 
 .profile-mini-card.active .profile-mini-arrow {
@@ -341,7 +404,7 @@
 
 .profile-mini-name {
   overflow: hidden;
-  color: var(--gd-text-primary);
+  color: var(--gd-dashboard-text);
   font-size: 0.875rem;
   font-weight: 600;
   line-height: 1.25;
@@ -350,7 +413,7 @@
 }
 
 .profile-mini-label {
-  color: var(--gd-text-muted);
+  color: var(--gd-dashboard-muted);
   font-size: 0.75rem;
   line-height: 1.25;
   white-space: nowrap;
@@ -361,7 +424,7 @@
 .profile-mini-arrow {
   flex: 0 0 auto;
   margin-left: auto;
-  color: var(--gd-text-muted);
+  color: var(--gd-dashboard-muted);
   font-size: 1.1rem;
 }
 
@@ -406,7 +469,7 @@
 .profile-drawer-backdrop {
   position: absolute;
   inset: 0;
-  background-color: rgba(26, 46, 40, 0.25);
+  background-color: rgba(5, 10, 8, 0.55);
   opacity: 0;
   transition: opacity 0.35s ease;
 }
@@ -447,17 +510,21 @@
   width: 2rem;
   height: 2rem;
   padding: 0;
-  border: none;
+  border: 1px solid rgba(196, 217, 176, 0.25);
   border-radius: 50%;
-  background-color: rgba(255, 255, 255, 0.9);
-  color: var(--gd-text-secondary);
+  background-color: rgba(255, 255, 255, 0.1);
+  color: var(--gd-dashboard-text);
   cursor: pointer;
-  transition: background-color 0.15s ease, color 0.15s ease;
+  transition:
+    background-color 0.15s ease,
+    color 0.15s ease,
+    border-color 0.15s ease;
 }
 
 .profile-drawer-close:hover {
-  background-color: var(--gd-surface);
-  color: var(--gd-primary);
+  background-color: rgba(46, 125, 82, 0.35);
+  border-color: rgba(196, 217, 176, 0.45);
+  color: var(--gd-accent-gold);
 }
 
 .profile-drawer .profile-card {

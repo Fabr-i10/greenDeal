@@ -5,10 +5,10 @@
  * 3- Activo -> fetch/sync/push
  */
 
-const CACHE_STATIC_NAME = "greendeal-static-v18"
-const CACHE_DYNAMIC_NAME = "greendeal-dynamic-v18"
-const CACHE_GRAPHQL_NAME = "greendeal-graphql-v18"
-const CACHE_IMMUTABLE_NAME = "greendeal-immutable-v18"
+const CACHE_STATIC_NAME = "greendeal-static-v26"
+const CACHE_DYNAMIC_NAME = "greendeal-dynamic-v26"
+const CACHE_GRAPHQL_NAME = "greendeal-graphql-v26"
+const CACHE_IMMUTABLE_NAME = "greendeal-immutable-v26"
 const MAX_CACHE_ITEMS = 50
 const GRAPHQL_URL = "https://greendeal-0ash.onrender.com/graphql"
 const BASE = new URL("./", self.location.href)

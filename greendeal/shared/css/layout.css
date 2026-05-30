@@ -243,9 +243,9 @@
     padding: 0;
     box-sizing: border-box;
     overflow: hidden;
-    border: 1px solid rgba(196, 217, 176, 0.35);
+    border: 1px solid var(--gd-header-profile-idle-border);
     border-radius: 0.625rem;
-    background: rgba(255, 255, 255, 0.08);
+    background: var(--gd-header-profile-idle-bg);
     color: var(--gd-accent-gold);
     line-height: 1;
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12);
@@ -267,8 +267,8 @@
   }
 
   .profile-header-btn:hover {
-    background: rgba(200, 237, 212, 0.22);
-    border-color: rgba(200, 237, 212, 0.55);
+    background: var(--gd-header-profile-hover-bg);
+    border-color: var(--gd-header-profile-hover-border);
     color: var(--gd-bg-lime);
     box-shadow: inset 0 0 0 1px rgba(217, 240, 168, 0.35);
   }
@@ -279,7 +279,7 @@
   }
 
   .profile-header-btn:active {
-    background: rgba(46, 125, 82, 0.35);
+    background: var(--gd-header-profile-active-bg);
   }
 
   .profile-header-btn[aria-expanded="true"] {

@@ -37,6 +37,29 @@
   --gd-dashboard-muted: rgba(232, 245, 236, 0.68);
   --gd-accent-gold: #d4c48a;
   --gd-sidebar-cream: #f3f6ef;
+  --gd-sidebar-dark: #1a2e28;
+  --gd-sidebar-dark-deep: #141f1c;
+  --gd-sidebar-dark-border: rgba(196, 217, 176, 0.18);
+  --gd-profile-card-bg: rgba(24, 34, 30, 0.98);
+  --gd-profile-header-gradient: linear-gradient(
+    135deg,
+    #1b3026 0%,
+    #2e5848 45%,
+    #1a3830 100%
+  );
+
+  /* Botones en barra superior (cerrar sesión, perfil móvil, etc.) */
+  --gd-header-btn-hover-bg: rgba(0, 0, 0, 0.25);
+  --gd-header-btn-hover-border: rgba(196, 217, 176, 0.55);
+  --gd-header-btn-hover-color: var(--gd-dashboard-text);
+  --gd-header-btn-active-bg: rgba(0, 0, 0, 0.35);
+  --gd-header-btn-active-border: rgba(196, 217, 176, 0.55);
+  --gd-header-btn-active-color: var(--gd-dashboard-text);
+  --gd-header-profile-idle-bg: rgba(255, 255, 255, 0.08);
+  --gd-header-profile-idle-border: rgba(196, 217, 176, 0.35);
+  --gd-header-profile-hover-bg: rgba(200, 237, 212, 0.22);
+  --gd-header-profile-hover-border: rgba(200, 237, 212, 0.55);
+  --gd-header-profile-active-bg: rgba(46, 125, 82, 0.35);
 
   /* Alias legacy */
   --green-primary: var(--gd-primary);
