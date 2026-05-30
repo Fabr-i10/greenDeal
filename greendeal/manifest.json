@@ -55,13 +55,13 @@
             "src": "img/icon_x192-maskable.png",
             "type": "image/png",
             "sizes": "192x192",
-            "purpose": "maskable"
+            "purpose": "any maskable"
         },
         {
             "src": "img/icon_x512-maskable.png",
             "type": "image/png",
             "sizes": "512x512",
-            "purpose": "maskable"
+            "purpose": "any maskable"
         }
     ],
     "screenshots": [
